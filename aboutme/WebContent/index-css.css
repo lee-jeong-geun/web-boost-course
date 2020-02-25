@@ -13,10 +13,6 @@ body {
 	text-align: center;
 }
 
-li {
-	list-style: none;
-}
-
 .header__nav {
 	padding: 15px;
 }
@@ -57,6 +53,11 @@ li {
 	padding: 30px 10px;
 	font-size: 15px;
 	box-shadow: 1px 0px 4px #000;
+	cursor: pointer;
+}
+
+.container__btn:hover {
+	color: orange;
 }
 
 .container__img {
@@ -68,4 +69,5 @@ li {
 }
 .footer__list {
 	color: gray;
+	list-style: none;
 }
