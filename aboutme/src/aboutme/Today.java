@@ -11,34 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Servlet implementation class Today
- */
 @WebServlet("/today")
 public class Today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
-    public Today() {
-        // TODO Auto-generated constructor stub
-    }
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String currentTime = "";
-		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.println("<a href='index.html'>∏ﬁ¿Œ»≠∏È</a>");
-		for(int i = 0; i < 10; i++){
+		out.println("<a href='index.html'>Î©îÏù∏ÌôîÎ©¥</a>");
+		for (int i = 0; i < 10; i++) {
 			out.println("<br>");
 		}
-		currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-		out.println("<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;«ˆ¿ÁΩ√∞£ : " + currentTime + "</h2>");
+		String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+		out.println("<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ÌòÑÏû¨ÏãúÍ∞Ñ : " + currentTime + "</h2>");
 	}
 
 }
