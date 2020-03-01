@@ -1,1 +1,7 @@
 /.metadata/
+
+# Compiled class file
+.class
+
+
+.settings/
