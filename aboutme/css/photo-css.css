@@ -60,7 +60,8 @@ body {
 	clear: left;
 }
 
-.footer__list {
+.footer__address {
+	padding: 10px;
 	color: gray;
-	list-style: none;
+	font-style: normal;
 }

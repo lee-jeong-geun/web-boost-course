@@ -68,7 +68,8 @@ body {
 	padding: 5px;
 	text-align: center;
 }
-.footer__list {
+.footer__address {
+	padding: 10px;
 	color: gray;
-	list-style: none;
+	font-style: normal;
 }
