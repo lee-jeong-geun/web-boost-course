@@ -22,11 +22,9 @@ public class Today extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println("<a href='index.html'>메인화면</a>");
-		for (int i = 0; i < 10; i++) {
-			out.println("<br>");
-		}
 		String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-		out.println("<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;현재시간 : " + currentTime + "</h2>");
+		out.println("<h2 style='position:absolute;left:50%;top:50%;margin-left:-150px;"
+				+ "margin-top:-15px;'>현재시간 : " + currentTime + "</h2>");
 	}
 
 }
