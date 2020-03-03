@@ -154,7 +154,9 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
       <Context docBase="C:\Users\ljk\Documents\web-boost-course\aboutme\img" path="/img" reloadable="true">
-</Context></Host>
+</Context>
+      <Context docBase="C:\Users\ljk\Documents\web-boost-course\aboutme\css" path="/css" reloadable="true"></Context>
+      <Context docBase="aboutme" path="/aboutme" reloadable="true" source="org.eclipse.jst.jee.server:aboutme"/></Host>
     </Engine>
   </Service>
 </Server>
