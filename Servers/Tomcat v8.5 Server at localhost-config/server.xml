@@ -155,8 +155,8 @@
 
       <Context docBase="C:\Users\ljk\Documents\web-boost-course\aboutme\img" path="/img" reloadable="true">
 </Context>
-      <Context docBase="C:\Users\ljk\Documents\web-boost-course\aboutme\css" path="/css" reloadable="true"></Context>
-      <Context docBase="aboutme" path="/aboutme" reloadable="true" source="org.eclipse.jst.jee.server:aboutme"/></Host>
+      <Context docBase="C:\Users\ljk\Documents\web-boost-course\aboutme\css" path="/css" reloadable="true"/>
+      <Context docBase="aboutme" path="/aboutme" reloadable="true" source="org.eclipse.jst.jee.server:aboutme"/><Context docBase="todo" path="/todo" reloadable="true" source="org.eclipse.jst.jee.server:todo"/></Host>
     </Engine>
   </Service>
 </Server>
