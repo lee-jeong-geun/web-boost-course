@@ -153,10 +153,11 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="C:\Users\ljk\Documents\web-boost-course\aboutme\img" path="/img" reloadable="true">
+      <Context docBase="todo" path="/todo" reloadable="true" source="org.eclipse.jst.jee.server:todo"/><Context docBase="C:\Users\ljk\Documents\web-boost-course\todo\css" path="/todo_css" reloadable="true">
+</Context><Context docBase="aboutme" path="/aboutme" reloadable="true" source="org.eclipse.jst.jee.server:aboutme"/><Context
+      		docBase="C:\Users\ljk\Documents\web-boost-course\aboutme\css" path="/aboutme_css" reloadable="true">
 </Context>
-      <Context docBase="C:\Users\ljk\Documents\web-boost-course\aboutme\css" path="/css" reloadable="true"/>
-      <Context docBase="aboutme" path="/aboutme" reloadable="true" source="org.eclipse.jst.jee.server:aboutme"/><Context docBase="todo" path="/todo" reloadable="true" source="org.eclipse.jst.jee.server:todo"/></Host>
+      	<Context docBase="C:\Users\ljk\Documents\web-boost-course\aboutme\img" path="/aboutme_img" reloadable="true"></Context></Host>
     </Engine>
   </Service>
 </Server>
