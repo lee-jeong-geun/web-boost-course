@@ -76,3 +76,7 @@ body {
 .card_title {
 	margin-top: 0px;
 }
+
+.card_button {
+	margin-left: 30px;
+}
