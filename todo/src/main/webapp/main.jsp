@@ -31,30 +31,32 @@
 				<ul class="card_list">
 					<c:forEach var="it" items="${list }">
 						<c:if test='${it.type == "TODO" }'>
-						<li class="card">
-							<h3 class="card_title">${it.title }</h3>
-						등록날짜: ${it. regDate}, ${it.name }, 우선순위 ${it.sequence }
-						</li>
+							<li class="card">
+								<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
+								${it.name }, 우선순위 ${it.sequence }
+								<button class="card_button">➔</button>
+							</li>
 						</c:if>
 					</c:forEach>
 				</ul>
 				<ul class="card_list">
 					<c:forEach var="it" items="${list }">
 						<c:if test='${it.type == "DOING" }'>
-						<li class="card">
-							<h3 class="card_title">${it.title }</h3>
-						등록날짜: ${it. regDate}, ${it.name }, 우선순위 ${it.sequence }
-						</li>
+							<li class="card">
+								<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
+								${it.name }, 우선순위 ${it.sequence }
+								<button class="card_button">➔</button>
+							</li>
 						</c:if>
 					</c:forEach>
 				</ul>
 				<ul class="card_list">
 					<c:forEach var="it" items="${list }">
 						<c:if test='${it.type == "DONE" }'>
-						<li class="card">
-							<h3 class="card_title">${it.title }</h3>
-						등록날짜: ${it. regDate}, ${it.name }, 우선순위 ${it.sequence }
-						</li>
+							<li class="card">
+								<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
+								${it.name }, 우선순위 ${it.sequence }
+							</li>
 						</c:if>
 					</c:forEach>
 				</ul>
