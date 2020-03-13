@@ -1,6 +1,7 @@
 package kr.or.connect.todo.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,7 +40,7 @@ public class TodoDao {
 					String name = rs.getString("name");
 					int sequence = rs.getInt("sequence");
 					String type = rs.getString("type");
-					String regDate = rs.getString("regdate");
+					String regDate = rs.getDate("regdate").toString();
 					TodoDto todoDto = new TodoDto(id, name, regDate, sequence, title, type);
 					list.add(todoDto);
 				}
