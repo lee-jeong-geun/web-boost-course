@@ -28,10 +28,10 @@
 				<h1 class="h1_list_name">DONE</h1>
 			</header>
 			<section class="container_bottom">
-				<ul class="card_list">
+				<ul class="card_list card_list_TODO">
 					<c:forEach var="it" items="${list }">
 						<c:if test='${it.type == "TODO" }'>
-							<li class="card">
+							<li class="card ${it.type }" id='${it.id }'>
 								<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
 								${it.name }, 우선순위 ${it.sequence }
 								<button class="card_button">➔</button>
@@ -39,10 +39,10 @@
 						</c:if>
 					</c:forEach>
 				</ul>
-				<ul class="card_list">
+				<ul class="card_list card_list_DOING">
 					<c:forEach var="it" items="${list }">
 						<c:if test='${it.type == "DOING" }'>
-							<li class="card">
+							<li class="card ${it.type }" id='${it.id }'>
 								<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
 								${it.name }, 우선순위 ${it.sequence }
 								<button class="card_button">➔</button>
@@ -50,10 +50,10 @@
 						</c:if>
 					</c:forEach>
 				</ul>
-				<ul class="card_list">
+				<ul class="card_list card_list_DONE">
 					<c:forEach var="it" items="${list }">
 						<c:if test='${it.type == "DONE" }'>
-							<li class="card">
+							<li class="card ${it.type }" id='${it.id }'>
 								<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
 								${it.name }, 우선순위 ${it.sequence }
 							</li>
@@ -64,4 +64,5 @@
 		</section>
 	</div>
 </body>
+<script src="/todo_scripts/main.js"></script>
 </html>
