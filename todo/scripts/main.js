@@ -2,51 +2,69 @@ var el = document.querySelectorAll(".card_button");
 
 function findPosition(node) {
 	var parent = node.parentNode;
-	for ( var i in parent.childNodes) {
+	for (var i in parent.childNodes) {
 		if (parent.childNodes[i].nodeName === "LI"
-				&& parent.childNodes[i].id > node.id) {
+			&& parent.childNodes[i].id > node.id) {
 			return parent.childNodes[i];
 		}
 	}
 	return null;
 }
 
-function update(event) {
-	var oReq = new XMLHttpRequest();
-	var target = event.target;
-	var parent = target.parentNode;
+function makeRequest(method, url, payload) {
+	return new Promise(function (resolve, reject) {
+		const request = new XMLHttpRequest();
 
-	// toDo: add put method
-
-	oReq.addEventListener("load", function() {
-		console.log("ok");
-	})
-	oReq.open("GET", "main.jsp");
-	oReq.send();
-
-	oReq.onreadystatechange = function() {
-		if (oReq.readyState !== XMLHttpRequest.DONE)
-			return;
-
-		if (oReq.status === 200) {
-			console.log("200", event);
-
-			if (parent.classList.contains("TODO")) {
-				document.querySelector(".card_list_DOING").appendChild(parent);
-				document.querySelector(".card_list_DOING").insertBefore(parent,
-						findPosition(parent));
-				parent.classList.replace("TODO", "DOING");
-			} else {
-				document.querySelector(".card_list_DONE").appendChild(parent);
-				document.querySelector(".card_list_DONE").insertBefore(parent,
-						findPosition(parent));
-				parent.classList.replace("DOING", "DONE");
-				parent.removeChild(parent.childNodes[3]);
+		request.onreadystatechange = function () {
+			if (request.readyState !== XMLHttpRequest.DONE) {
+				return;
 			}
-		}
+			if (request.status === 200) {
+				resolve(request.response);
+			} else {
+				reject(request.status);
+			}
+		};
+
+		request.open(method, url);
+		request.setRequestHeader('Content-type', 'application/json');
+		request.send(JSON.stringify(payload));
+	});
+
+}
+
+function moveCardExecute(card, from, to, nextList) {
+	document.querySelector(nextList).appendChild(card);
+	document.querySelector(nextList).insertBefore(card, findPosition(card));
+	card.classList.replace(from, to);
+}
+
+function moveCard(card) {
+	if (card.classList.contains("todo")) {
+		moveCardExecute(card, 'todo', 'doing', '.card_list_doing');
+	} else {
+		moveCardExecute(card, 'doing', 'done', '.card_list_done');
+		card.removeChild(card.childNodes[3]);
 	}
 }
 
-el.forEach(function(e) {
+async function update(event) {
+	const target = event.target;
+	const parent = target.parentNode;
+
+	const data = {
+		id: parent.id,
+		type: parent.classList[1].toUpperCase()
+	};
+
+	try {
+		await makeRequest('PUT', 'type', data);
+		moveCard(parent);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+el.forEach(function (e) {
 	e.addEventListener("click", update);
 });
