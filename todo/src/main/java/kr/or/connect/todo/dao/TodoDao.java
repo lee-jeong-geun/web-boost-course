@@ -11,9 +11,10 @@ import java.util.List;
 import kr.or.connect.todo.dto.TodoDto;
 
 public class TodoDao {
-	private static String dbUrl = "jdbc:mysql://localhost:3306/connectdb";
-	private static String dbUser = "connectuser";
-	private static String dbPasswd = "connect123!@#";
+	private static final String dbUrl = "jdbc:mysql://localhost:3306/connectdb";
+	private static final String dbUser = "connectuser";
+	private static final String dbPasswd = "connect123!@#";
+	private static final String sql = "select * from todo";
 
 	public int addTodo(TodoDto todo) {
 		return 0;
@@ -21,14 +22,12 @@ public class TodoDao {
 
 	public List<TodoDto> getTodos() {
 		List<TodoDto> list = new ArrayList<>();
-
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		String sql = "select * from todo";
 		try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -39,7 +38,7 @@ public class TodoDao {
 					String title = rs.getString("title");
 					String name = rs.getString("name");
 					int sequence = rs.getInt("sequence");
-					String type = rs.getString("type");
+					String type = rs.getString("type").toLowerCase();
 					String regDate = rs.getDate("regdate").toString();
 					TodoDto todoDto = new TodoDto(id, name, regDate, sequence, title, type);
 					list.add(todoDto);
@@ -56,6 +55,27 @@ public class TodoDao {
 	}
 
 	public int updateTodo(TodoDto todo) {
-		return 0;
+		int updateCount = 0;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String sql = "update todo set type = ? where id = ?";
+
+		try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, todo.getType());
+			ps.setLong(2, todo.getId());
+			
+			updateCount = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return updateCount;
 	}
 }
