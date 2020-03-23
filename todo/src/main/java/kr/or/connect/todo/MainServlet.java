@@ -29,7 +29,6 @@ public class MainServlet extends HttpServlet {
 
 		for (TodoDto todoDto : list) {
 			String type = todoDto.getType();
-			todoDto.setType(type.toLowerCase());
 			if ("TODO".equals(type)) {
 				todoList.add(todoDto);
 			} else if ("DOING".equals(type)) {
