@@ -38,7 +38,7 @@ public class TodoDao {
 					String title = rs.getString("title");
 					String name = rs.getString("name");
 					int sequence = rs.getInt("sequence");
-					String type = rs.getString("type").toLowerCase();
+					String type = rs.getString("type");
 					String regDate = rs.getDate("regdate").toString();
 					TodoDto todoDto = new TodoDto(id, name, regDate, sequence, title, type);
 					list.add(todoDto);
