@@ -1,7 +1,6 @@
 package kr.or.connect.todo.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +13,8 @@ public class TodoDao {
 	private static final String dbUrl = "jdbc:mysql://localhost:3306/connectdb";
 	private static final String dbUser = "connectuser";
 	private static final String dbPasswd = "connect123!@#";
-	private static final String sql = "select * from todo";
+	private static final String getTodosSql = "select * from todo order by id";
+	private static final String updateTodoSql = "update todo set type = ? where id = ?";
 
 	public int addTodo(TodoDto todo) {
 		return 0;
@@ -29,7 +29,7 @@ public class TodoDao {
 		}
 
 		try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
-				PreparedStatement ps = conn.prepareStatement(sql)) {
+				PreparedStatement ps = conn.prepareStatement(getTodosSql)) {
 
 			try (ResultSet rs = ps.executeQuery()) {
 
@@ -63,10 +63,8 @@ public class TodoDao {
 			e.printStackTrace();
 		}
 
-		String sql = "update todo set type = ? where id = ?";
-
 		try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
-				PreparedStatement ps = conn.prepareStatement(sql)) {
+				PreparedStatement ps = conn.prepareStatement(updateTodoSql)) {
 			ps.setString(1, todo.getType());
 			ps.setLong(2, todo.getId());
 			
