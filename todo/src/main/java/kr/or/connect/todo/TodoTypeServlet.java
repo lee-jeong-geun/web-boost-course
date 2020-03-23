@@ -39,17 +39,17 @@ public class TodoTypeServlet extends HttpServlet {
 			return;
 		}
 		
-		TodoDto todo = new TodoDto();
+		TodoDto todoDto = new TodoDto();
 		Long id = Long.parseLong(map.get("id"));
 
-		todo.setId(id);
+		todoDto.setId(id);
 		if ("TODO".equals(map.get("type"))) {
-			todo.setType("DOING");
+			todoDto.setType("DOING");
 		} else {
-			todo.setType("DONE");
+			todoDto.setType("DONE");
 		}
 
-		if (todoDao.updateTodo(todo) > 0) {
+		if (todoDao.updateTodo(todoDto) > 0) {
 			out.print("success");
 		} else {
 			out.print("update fail");
