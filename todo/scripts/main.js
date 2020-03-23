@@ -20,7 +20,7 @@ function makeRequest(method, url, payload) {
 				return;
 			}
 			if (request.status === 200) {
-				resolve(request.response);
+				resolve(request.responseText);
 			} else {
 				reject(request.status);
 			}
@@ -52,14 +52,17 @@ async function update(event) {
 	const target = event.target;
 	const parent = target.parentNode;
 
+
 	const data = {
-		id: parent.id,
+		id: parseInt(parent.id),
 		type: parent.classList[1].toUpperCase()
 	};
 
 	try {
-		await makeRequest('PUT', 'type', data);
-		moveCard(parent);
+		const message = await makeRequest('PUT', 'type', data);
+		if (message === "success") {
+			moveCard(parent);
+		}
 	} catch (error) {
 		console.log(error);
 	}
