@@ -5,7 +5,9 @@
 
 <%@ page import="kr.or.connect.todo.dto.TodoDto"%>
 
-<c:set var="list" value='<%=request.getAttribute("todoList")%>' />
+<c:set var="todoList" value='<%=request.getAttribute("todoList")%>' />
+<c:set var="doingList" value='<%=request.getAttribute("doingList")%>' />
+<c:set var="doneList" value='<%=request.getAttribute("doneList")%>' />
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,47 +19,41 @@
 	<div id="wrap">
 		<header class="header">
 			<h2 class="header_title">나의 해야할 일들</h2>
-			<nav class="header_nav">
-				<button class="btn_newtodo">새로운 TODO 등록</button>
-			</nav>
+			<button class="header_button_newtodo">새로운 TODO 등록</button>
 		</header>
 		<section class="container">
-			<header class="container_top">
-				<h1 class="h1_list_name">TODO</h1>
-				<h1 class="h1_list_name">DOING</h1>
-				<h1 class="h1_list_name">DONE</h1>
-			</header>
-			<section class="container_bottom">
-				<ul class="card_list card_list_TODO">
-					<c:forEach var="it" items="${list }">
-						<c:if test='${it.type == "TODO" }'>
-							<li class="card ${it.type }" id='${it.id }'>
-								<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
-								${it.name }, 우선순위 ${it.sequence }
-								<button class="card_button">➔</button>
-							</li>
-						</c:if>
+			<section class="card_list_container">
+				<h1 class="card_list_name">TODO</h1>
+				<ul class="card_list card_list_todo">
+					<c:forEach var="it" items="${todoList }">
+						<li class="card ${it.type }" id='${it.id }'>
+							<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
+							${it.name }, 우선순위 ${it.sequence }
+							<button class="card_button">➔</button>
+						</li>
 					</c:forEach>
 				</ul>
-				<ul class="card_list card_list_DOING">
-					<c:forEach var="it" items="${list }">
-						<c:if test='${it.type == "DOING" }'>
-							<li class="card ${it.type }" id='${it.id }'>
-								<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
-								${it.name }, 우선순위 ${it.sequence }
-								<button class="card_button">➔</button>
-							</li>
-						</c:if>
+			</section>
+			<section class="card_list_container">
+				<h1 class="card_list_name">DOING</h1>
+				<ul class="card_list card_list_doing">
+					<c:forEach var="it" items="${doingList }">
+						<li class="card ${it.type }" id='${it.id }'>
+							<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
+							${it.name }, 우선순위 ${it.sequence }
+							<button class="card_button">➔</button>
+						</li>
 					</c:forEach>
 				</ul>
-				<ul class="card_list card_list_DONE">
-					<c:forEach var="it" items="${list }">
-						<c:if test='${it.type == "DONE" }'>
-							<li class="card ${it.type }" id='${it.id }'>
-								<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
-								${it.name }, 우선순위 ${it.sequence }
-							</li>
-						</c:if>
+			</section>
+			<section class="card_list_container">
+				<h1 class="card_list_name">DONE</h1>
+				<ul class="card_list card_list_done">
+					<c:forEach var="it" items="${doneList }">
+						<li class="card ${it.type }" id='${it.id }'>
+							<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
+							${it.name }, 우선순위 ${it.sequence }
+						</li>
 					</c:forEach>
 				</ul>
 			</section>
