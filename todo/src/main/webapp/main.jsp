@@ -1,4 +1,3 @@
-<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,6 +7,7 @@
 <c:set var="todoList" value='<%=request.getAttribute("todoList")%>' />
 <c:set var="doingList" value='<%=request.getAttribute("doingList")%>' />
 <c:set var="doneList" value='<%=request.getAttribute("doneList")%>' />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +26,7 @@
 				<h1 class="card_list_name">TODO</h1>
 				<ul class="card_list card_list_todo">
 					<c:forEach var="it" items="${todoList }">
-						<li class="card ${it.type }" id='${it.id }'>
+						<li class="card" data-id='${it.id }' data-type='${it.type }'>
 							<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
 							${it.name }, 우선순위 ${it.sequence }
 							<button class="card_button">➔</button>
@@ -38,7 +38,7 @@
 				<h1 class="card_list_name">DOING</h1>
 				<ul class="card_list card_list_doing">
 					<c:forEach var="it" items="${doingList }">
-						<li class="card ${it.type }" id='${it.id }'>
+						<li class="card" data-id='${it.id }' data-type='${it.type }'>
 							<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
 							${it.name }, 우선순위 ${it.sequence }
 							<button class="card_button">➔</button>
@@ -50,7 +50,7 @@
 				<h1 class="card_list_name">DONE</h1>
 				<ul class="card_list card_list_done">
 					<c:forEach var="it" items="${doneList }">
-						<li class="card ${it.type }" id='${it.id }'>
+						<li class="card" data-id='${it.id }' data-type='${it.type }'>
 							<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
 							${it.name }, 우선순위 ${it.sequence }
 						</li>

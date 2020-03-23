@@ -4,7 +4,7 @@ function findPosition(node) {
 	var parent = node.parentNode;
 	for (var i in parent.childNodes) {
 		if (parent.childNodes[i].nodeName === "LI"
-			&& parent.childNodes[i].id > node.id) {
+			&& parent.childNodes[i].dataset.id > node.dataset.id) {
 			return parent.childNodes[i];
 		}
 	}
@@ -33,17 +33,17 @@ function makeRequest(method, url, payload) {
 
 }
 
-function moveCardExecute(card, from, to, nextList) {
+function moveCardExecute(card, to, nextList) {
 	document.querySelector(nextList).appendChild(card);
 	document.querySelector(nextList).insertBefore(card, findPosition(card));
-	card.classList.replace(from, to);
+	card.dataset.type = to;
 }
 
 function moveCard(card) {
-	if (card.classList.contains("todo")) {
-		moveCardExecute(card, 'todo', 'doing', '.card_list_doing');
+	if (card.dataset.type === 'TODO') {
+		moveCardExecute(card, 'DOING', '.card_list_doing');
 	} else {
-		moveCardExecute(card, 'doing', 'done', '.card_list_done');
+		moveCardExecute(card, 'DONE', '.card_list_done');
 		card.removeChild(card.childNodes[3]);
 	}
 }
@@ -54,8 +54,8 @@ async function update(event) {
 
 
 	const data = {
-		id: parseInt(parent.id),
-		type: parent.classList[1].toUpperCase()
+		id: parseInt(parent.dataset.id),
+		type: parent.dataset.type
 	};
 
 	try {
