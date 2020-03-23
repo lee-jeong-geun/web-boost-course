@@ -1,6 +1,7 @@
 package kr.or.connect.todo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -22,9 +23,26 @@ public class MainServlet extends HttpServlet {
 			throws ServletException, IOException {
 		TodoDao dao = new TodoDao();
 		List<TodoDto> list = dao.getTodos();
-		
-		request.setAttribute("todoList", list);
-		
+		List<TodoDto> todoList = new ArrayList<>();
+		List<TodoDto> doingList = new ArrayList<>();
+		List<TodoDto> doneList = new ArrayList<>();
+
+		for (TodoDto todoDto : list) {
+			String type = todoDto.getType();
+			todoDto.setType(type.toLowerCase());
+			if ("TODO".equals(type)) {
+				todoList.add(todoDto);
+			} else if ("DOING".equals(type)) {
+				doingList.add(todoDto);
+			} else {
+				doneList.add(todoDto);
+			}
+		}
+
+		request.setAttribute("todoList", todoList);
+		request.setAttribute("doingList", doingList);
+		request.setAttribute("doneList", doneList);
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("main.jsp");
 		requestDispatcher.forward(request, response);
 	}
