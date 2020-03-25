@@ -19,7 +19,7 @@
 	<div id="wrap">
 		<header class="header">
 			<h2 class="header_title">나의 해야할 일들</h2>
-			<button class="header_button_newtodo">새로운 TODO 등록</button>
+			<button onclick="location.href='new'" class="header_button_newtodo">새로운 TODO 등록</button>
 		</header>
 		<section class="container">
 			<section class="card_list_container">
