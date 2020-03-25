@@ -1,7 +1,6 @@
 package kr.or.connect.todo;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +32,8 @@ public class TodoAddServlet extends HttpServlet {
 
 		TodoDao todoDao = new TodoDao();
 		todoDao.addTodo(todoDto);
+
+		response.sendRedirect("main");
 	}
 
 }
