@@ -11,7 +11,7 @@
 <body>
 	<div id="wrap">
 		<h1>할일 등록</h1>
-		<form action="/register" method="post" class="form_container">
+		<form action="/todo/register" method="post" class="form_container">
 			<section class="title_container">
 				<label for="title">어떤일인가요?</label>
 				<input type="text" id="title" name="new_title" placeholder="swift 공부하기(24자까지)" required/>
@@ -27,17 +27,17 @@
 				<ul class="sequence_list">
 					<li>
 						<label for="sequence_1"> 
-							<input type="radio" id="sequence_1" name="new_sequence" required/>1순위
+							<input type="radio" id="sequence_1" name="new_sequence" value="1" required/>1순위
 						</label>
 					</li>
 					<li>
 						<label for="sequence_2">
-							<input type="radio" id="sequence_2" name="new_sequence"/>2순위
+							<input type="radio" id="sequence_2" name="new_sequence" value="2"/>2순위
 						</label>
 					</li>
 					<li>
 						<label for="sequence_3">
-							<input type="radio" id="sequence_3" name="new_sequence"/>3순위
+							<input type="radio" id="sequence_3" name="new_sequence" value="3"/>3순위
 						</label>
 					</li>
 				</ul>
