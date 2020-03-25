@@ -54,15 +54,13 @@ async function update(event) {
 
 
 	const data = {
-		id: parseInt(parent.dataset.id),
+		id: parent.dataset.id,
 		type: parent.dataset.type
 	};
 
 	try {
-		const message = await makeRequest('PUT', 'type', data);
-		if (message === "success") {
-			moveCard(parent);
-		}
+		await makeRequest('PUT', 'type', data);
+		moveCard(parent);
 	} catch (error) {
 		console.log(error);
 	}
