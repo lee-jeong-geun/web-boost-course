@@ -14,7 +14,7 @@
 		<form action="/register" method="post" class="form_container">
 			<section class="title_container">
 				<label for="title">어떤일인가요?</label>
-				<input type="text" id="title" name="new_title" placeholder="swift 공부하기(24자까지)" maxlength="100" required/>
+				<input type="text" id="title" name="new_title" placeholder="swift 공부하기(24자까지)" required/>
 			</section>
 			
 			<section class="name_container">
