@@ -17,38 +17,35 @@ public class TodoDao {
 	private static final String getTodosSql = "select * from todo order by id";
 	private static final String updateTodoSql = "update todo set type = ? where id = ?";
 
-	public int addTodo(TodoDto todo) {
-		int addCount = 0;
-		
+	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+	}
+
+	public int addTodo(TodoDto todo) {
+		int addCount = 0;
+
 		try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
 				PreparedStatement ps = conn.prepareStatement(addTodoSql)) {
-			
+
 			ps.setString(1, todo.getTitle());
 			ps.setString(2, todo.getName());
 			ps.setInt(3, todo.getSequence());
-			
+
 			addCount = ps.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return addCount;
 	}
 
 	public List<TodoDto> getTodos() {
 		List<TodoDto> list = new ArrayList<>();
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
 		try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
 				PreparedStatement ps = conn.prepareStatement(getTodosSql)) {
@@ -79,19 +76,13 @@ public class TodoDao {
 	public int updateTodo(TodoDto todo) {
 		int updateCount = 0;
 
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 		try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
 				PreparedStatement ps = conn.prepareStatement(updateTodoSql)) {
 			ps.setString(1, todo.getType());
 			ps.setLong(2, todo.getId());
-			
+
 			updateCount = ps.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
