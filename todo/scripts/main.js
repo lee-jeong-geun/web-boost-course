@@ -1,10 +1,10 @@
-var el = document.querySelectorAll(".card_button");
+const el = document.querySelectorAll(".card_button");
 
 function findPosition(node) {
-	var parent = node.parentNode;
+	const parent = node.parentNode;
 	for (var i in parent.childNodes) {
 		if (parent.childNodes[i].nodeName === "LI"
-			&& parent.childNodes[i].dataset.id > node.dataset.id) {
+			&& parseInt(parent.childNodes[i].dataset.id) > parseInt(node.dataset.id)) {
 			return parent.childNodes[i];
 		}
 	}
