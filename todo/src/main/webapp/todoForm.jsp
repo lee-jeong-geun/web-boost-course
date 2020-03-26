@@ -55,11 +55,12 @@
 </body>
 <script type="text/javascript">
 const element = document.querySelector("#title");
+const maxLength = 24;
 
 function maxLengthCheck(event) {
-	if (this.value.length > 24) {
-		const temp = this.value[24];
-		this.value = this.value.replace(this.value.slice(0), this.value.slice(0, 23) + temp);
+	if (this.value.length > maxLength) {
+		const temp = this.value[maxLength];
+		this.value = this.value.replace(this.value.slice(0), this.value.slice(0, maxLength - 1) + temp);
 		event.target.innerText = this.value;
 	}
 }
