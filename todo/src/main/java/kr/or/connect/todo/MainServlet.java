@@ -20,18 +20,7 @@ public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public enum Type {
-		TODO("todoList"), DOING("doingList"), DONE("doneList");
-
-		final private String name;
-
-		private Type(String name) {
-			this.name = name;
-		}
-
-		public String getName() {
-			return name;
-		}
-
+		TODO, DOING, DONE;
 	}
 
 	@Override
@@ -41,7 +30,7 @@ public class MainServlet extends HttpServlet {
 
 		Map<String, List<TodoDto>> list = dao.getTodos().stream().collect(Collectors.groupingBy(TodoDto::getType));
 		for (Type type : Type.values()) {
-			request.setAttribute(type.getName(), list.get(type.toString()));
+			request.setAttribute(type.toString(), list.get(type.toString()));
 		}
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("main.jsp");
