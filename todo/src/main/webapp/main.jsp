@@ -4,9 +4,9 @@
 
 <%@ page import="kr.or.connect.todo.dto.TodoDto"%>
 
-<c:set var="todoList" value='<%=request.getAttribute("todoList")%>' />
-<c:set var="doingList" value='<%=request.getAttribute("doingList")%>' />
-<c:set var="doneList" value='<%=request.getAttribute("doneList")%>' />
+<c:set var="todoList" value='<%=request.getAttribute("TODO")%>' />
+<c:set var="doingList" value='<%=request.getAttribute("DOING")%>' />
+<c:set var="doneList" value='<%=request.getAttribute("DONE")%>' />
 
 <!DOCTYPE html>
 <html>
