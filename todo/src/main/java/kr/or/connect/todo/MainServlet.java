@@ -3,6 +3,7 @@ package kr.or.connect.todo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,17 +27,10 @@ public class MainServlet extends HttpServlet {
 		List<TodoDto> todoList = new ArrayList<>();
 		List<TodoDto> doingList = new ArrayList<>();
 		List<TodoDto> doneList = new ArrayList<>();
-
-		for (TodoDto todoDto : list) {
-			String type = todoDto.getType();
-			if ("TODO".equals(type)) {
-				todoList.add(todoDto);
-			} else if ("DOING".equals(type)) {
-				doingList.add(todoDto);
-			} else {
-				doneList.add(todoDto);
-			}
-		}
+		
+		todoList = list.stream().filter(t -> t.getType().equals("TODO")).collect(Collectors.toList());
+		doingList = list.stream().filter(t -> t.getType().equals("DOING")).collect(Collectors.toList());
+		doneList = list.stream().filter(t -> t.getType().equals("DONE")).collect(Collectors.toList());
 
 		request.setAttribute("todoList", todoList);
 		request.setAttribute("doingList", doingList);
