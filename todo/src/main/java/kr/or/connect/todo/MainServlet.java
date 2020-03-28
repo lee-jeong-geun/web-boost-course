@@ -24,17 +24,13 @@ public class MainServlet extends HttpServlet {
 			throws ServletException, IOException {
 		TodoDao dao = new TodoDao();
 		List<TodoDto> list = dao.getTodos();
-		List<TodoDto> todoList = new ArrayList<>();
-		List<TodoDto> doingList = new ArrayList<>();
-		List<TodoDto> doneList = new ArrayList<>();
-		
-		todoList = list.stream().filter(t -> t.getType().equals("TODO")).collect(Collectors.toList());
-		doingList = list.stream().filter(t -> t.getType().equals("DOING")).collect(Collectors.toList());
-		doneList = list.stream().filter(t -> t.getType().equals("DONE")).collect(Collectors.toList());
 
-		request.setAttribute("todoList", todoList);
-		request.setAttribute("doingList", doingList);
-		request.setAttribute("doneList", doneList);
+		request.setAttribute("todoList",
+				list.stream().filter(t -> t.getType().equals("TODO")).collect(Collectors.toList()));
+		request.setAttribute("doingList",
+				list.stream().filter(t -> t.getType().equals("DOING")).collect(Collectors.toList()));
+		request.setAttribute("doneList",
+				list.stream().filter(t -> t.getType().equals("DONE")).collect(Collectors.toList()));
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("main.jsp");
 		requestDispatcher.forward(request, response);
