@@ -1,8 +1,6 @@
 package kr.or.connect.todo;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -21,40 +19,32 @@ import kr.or.connect.todo.dto.TodoDto;
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private enum Type {
+		TODO, DOING, DONE;
+
+		private static Type[] typeList = values();
+
+		public Type nextElement() {
+			return typeList[(this.ordinal() + 1) % typeList.length];
+		}
+	}
+
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text;UTF-8");
 
-		TodoDao todoDao = new TodoDao();
-		PrintWriter out = response.getWriter();
-		BufferedReader reader = request.getReader();
 		ObjectMapper objectMapper = new ObjectMapper();
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, String> map = objectMapper.readValue(request.getReader(),
+				new TypeReference<HashMap<String, String>>() {});
 
-		map = objectMapper.readValue(reader, new TypeReference<HashMap<String, String>>() {});
-		if (map == null) {
-			out.print("read error");
-			return;
-		}
-		
 		TodoDto todoDto = new TodoDto();
-		Long id = Long.parseLong(map.get("id"));
+		todoDto.setId(Long.parseLong(map.get("id")));
+		todoDto.setType(Type.valueOf(map.get("type")).nextElement().toString());
 
-		todoDto.setId(id);
-		if ("TODO".equals(map.get("type"))) {
-			todoDto.setType("DOING");
-		} else {
-			todoDto.setType("DONE");
-		}
-
-		if (todoDao.updateTodo(todoDto) > 0) {
-			out.print("success");
-		} else {
-			out.print("update fail");
-		}
-
+		TodoDao todoDao = new TodoDao();
+		todoDao.updateTodo(todoDto);
 	}
 
 }
