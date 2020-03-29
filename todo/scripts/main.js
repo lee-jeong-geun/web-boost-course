@@ -44,7 +44,11 @@ function moveCard(card) {
 		moveCardExecute(card, 'DOING', '.card_list_doing');
 	} else {
 		moveCardExecute(card, 'DONE', '.card_list_done');
-		card.removeChild(card.childNodes[3]);
+		for (var i in card.childNodes) {
+			if (card.childNodes[i].nodeName === "BUTTON") {
+				card.removeChild(card.childNodes[i]);
+			}
+		}
 	}
 }
 
