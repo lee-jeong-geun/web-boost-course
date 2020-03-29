@@ -17,7 +17,7 @@ import kr.or.connect.todo.dto.TodoDto;
 
 @WebServlet("/type")
 public class TodoTypeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5335641695867753425L;
 
 	private enum Type {
 		TODO, DOING, DONE;

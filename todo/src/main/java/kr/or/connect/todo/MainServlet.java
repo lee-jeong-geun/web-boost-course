@@ -17,7 +17,7 @@ import kr.or.connect.todo.dto.TodoDto;
 
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7719687862473166847L;
 
 	public enum Type {
 		TODO, DOING, DONE;

@@ -13,7 +13,7 @@ import kr.or.connect.todo.dto.TodoDto;
 
 @WebServlet("/register")
 public class TodoAddServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7459151427945989528L;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
