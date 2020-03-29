@@ -27,8 +27,8 @@
 				<ul class="card_list card_list_todo">
 					<c:forEach var="it" items="${todoList }">
 						<li class="card" data-id='${it.id }' data-type='${it.type }'>
-							<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
-							${it.name }, 우선순위 ${it.sequence }
+							<h3 class="card_title">${it.title }</h3> 
+							<span class="card_text">등록날짜:${it. regDate}, ${it.name }, 우선순위 ${it.sequence }</span>
 							<button class="card_button">➔</button>
 						</li>
 					</c:forEach>
@@ -39,8 +39,8 @@
 				<ul class="card_list card_list_doing">
 					<c:forEach var="it" items="${doingList }">
 						<li class="card" data-id='${it.id }' data-type='${it.type }'>
-							<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
-							${it.name }, 우선순위 ${it.sequence }
+							<h3 class="card_title">${it.title }</h3>
+							<span class="card_text">등록날짜:${it. regDate}, ${it.name }, 우선순위 ${it.sequence }</span>
 							<button class="card_button">➔</button>
 						</li>
 					</c:forEach>
@@ -51,8 +51,8 @@
 				<ul class="card_list card_list_done">
 					<c:forEach var="it" items="${doneList }">
 						<li class="card" data-id='${it.id }' data-type='${it.type }'>
-							<h3 class="card_title">${it.title }</h3> 등록날짜: ${it. regDate},
-							${it.name }, 우선순위 ${it.sequence }
+							<h3 class="card_title">${it.title }</h3> 
+							<span class="card_text">등록날짜:${it. regDate}, ${it.name }, 우선순위 ${it.sequence }</span>
 						</li>
 					</c:forEach>
 				</ul>
