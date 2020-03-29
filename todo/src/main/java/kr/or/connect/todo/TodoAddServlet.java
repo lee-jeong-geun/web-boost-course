@@ -22,13 +22,9 @@ public class TodoAddServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		TodoDto todoDto = new TodoDto();
-		String title = request.getParameter("new_title");
-		String name = request.getParameter("new_name");
-		int sequence = Integer.parseInt(request.getParameter("new_sequence"));
-
-		todoDto.setTitle(title);
-		todoDto.setName(name);
-		todoDto.setSequence(sequence);
+		todoDto.setTitle(request.getParameter("new_title"));
+		todoDto.setName(request.getParameter("new_name"));
+		todoDto.setSequence(Integer.parseInt(request.getParameter("new_sequence")));
 
 		TodoDao todoDao = new TodoDao();
 		todoDao.addTodo(todoDto);
