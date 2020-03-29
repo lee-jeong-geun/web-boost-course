@@ -3,6 +3,7 @@
 
 #wrap {
 	min-width: 700px;
+	width: 1600px;
 }
 
 .header {
@@ -34,6 +35,7 @@
 	display: flex;
 	flex-direction: column;
 	margin-left: 20px;
+	width: 25%;
 }
 
 .card_list_name {
@@ -57,6 +59,11 @@
 
 .card_title {
 	margin: 0px;
+	margin-bottom: 10px;
+}
+
+.card_text {
+	display: inline-block;
 	margin-bottom: 10px;
 }
 
