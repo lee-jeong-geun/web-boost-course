@@ -1,6 +1,7 @@
 package kr.or.connect.todo;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -33,8 +34,9 @@ public class TodoTypeServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text;UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
+		PrintWriter out = response.getWriter();
 		ObjectMapper objectMapper = new ObjectMapper();
 		HashMap<String, String> map = objectMapper.readValue(request.getReader(),
 				new TypeReference<HashMap<String, String>>() {});
@@ -44,7 +46,14 @@ public class TodoTypeServlet extends HttpServlet {
 		todoDto.setType(Type.valueOf(map.get("type")).nextElement().toString());
 
 		TodoDao todoDao = new TodoDao();
-		todoDao.updateTodo(todoDto);
+		int updateCount = todoDao.updateTodo(todoDto);
+		
+		if (updateCount > 0) {
+			out.print("success");
+		} else {
+			out.print("fail");
+		}
+
 	}
 
 }
