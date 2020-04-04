@@ -63,8 +63,10 @@ async function update(event) {
 	};
 
 	try {
-		await makeRequest('PUT', 'type', data);
-		moveCard(parent);
+		const message = await makeRequest('PUT', 'type', data);
+		if (message === "success") {
+			moveCard(parent);
+		}
 	} catch (error) {
 		console.log(error);
 	}
