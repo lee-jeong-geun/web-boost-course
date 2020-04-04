@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>New</title>
-<link rel="stylesheet" href="/todo_css/todoForm.css">
+<link rel="stylesheet" href="css/todoForm.css">
 </head>
 
 <body>

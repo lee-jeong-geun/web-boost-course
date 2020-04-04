@@ -13,7 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Main</title>
-<link rel="stylesheet" href="/todo_css/main.css">
+<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 	<div id="wrap">
@@ -60,5 +60,5 @@
 		</section>
 	</div>
 </body>
-<script src="/todo_scripts/main.js"></script>
+<script src="scripts/main.js"></script>
 </html>
