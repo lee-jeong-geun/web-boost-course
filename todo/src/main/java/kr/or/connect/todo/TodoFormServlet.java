@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/new")
 public class TodoFormServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3598831097010573390L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
