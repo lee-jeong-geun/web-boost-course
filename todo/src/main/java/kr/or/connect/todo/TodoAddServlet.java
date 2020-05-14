@@ -14,6 +14,7 @@ import kr.or.connect.todo.dto.TodoDto;
 @WebServlet("/register")
 public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = -7459151427945989528L;
+	private static final int maxLength = 24;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -27,8 +28,9 @@ public class TodoAddServlet extends HttpServlet {
 		todoDto.setSequence(Integer.parseInt(request.getParameter("new_sequence")));
 
 		TodoDao todoDao = new TodoDao();
-		todoDao.addTodo(todoDto);
-
+		if (todoDto.getTitle().length() <= maxLength) {
+			todoDao.addTodo(todoDto);
+		}
 		response.sendRedirect("main");
 	}
 

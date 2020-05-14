@@ -44,7 +44,7 @@
 			</section>
 			
 			<section class="button_container">
-				<button type="button" onclick="location.href='main'" class="button button_white">&#60; &nbsp이전</button>
+				<button type="button" onclick="location.href='main'" class="button button_white">&#60;&nbsp;이전</button>
 				<section class="button_list_right">
 					<button type="submit" class="button button_blue">제출</button>
 					<button type="reset" class="button button_blue">내용지우기</button>
