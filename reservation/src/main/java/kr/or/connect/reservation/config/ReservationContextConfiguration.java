@@ -8,7 +8,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-//@ComponentScan(basePackages = {"kr.or.connect.reservation.controller"})
+@ComponentScan(basePackages = {"kr.or.connect.reservation.controller"})
 public class ReservationContextConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
