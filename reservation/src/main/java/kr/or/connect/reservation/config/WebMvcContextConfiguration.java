@@ -9,12 +9,13 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"kr.or.connect.reservation.controller"})
-public class ReservationContextConfiguration extends WebMvcConfigurerAdapter {
+public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/css").setCachePeriod(31556926);
-        registry.addResourceHandler("/js/**").addResourceLocations("/js").setCachePeriod(31556926);
-        registry.addResourceHandler("/img/**").addResourceLocations("/img").setCachePeriod(31556926);
+        registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/").setCachePeriod(31556926);
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/").setCachePeriod(31556926);
+        registry.addResourceHandler("/img/**").addResourceLocations("/resources/img/").setCachePeriod(31556926);
+        registry.addResourceHandler("/html/**").addResourceLocations("/resources/html/").setCachePeriod(31556926);
     }
 
     @Override
