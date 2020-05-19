@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 public class DBConfig implements TransactionManagementConfigurer {
-    @Value("${spring.datasource.driver-class-name=}")
+    @Value("${spring.datasource.driver-class-name}")
     private String driverClassName;
     @Value("${spring.datasource.url}")
     private String url;
