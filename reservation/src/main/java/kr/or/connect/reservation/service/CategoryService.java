@@ -1,5 +1,9 @@
 package kr.or.connect.reservation.service;
 
-public interface CategoryService {
+import kr.or.connect.reservation.dto.CategoryDto;
 
+import java.util.List;
+
+public interface CategoryService {
+    List<CategoryDto> getCategories();
 }
