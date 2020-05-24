@@ -8,6 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan(basePackages = {"kr.or.connect.reservation.dao", "kr.or.connect.reservation.service"})
 @Import({DBConfig.class})
-@PropertySource("application.properties")
+@PropertySource("classpath:application.properties")
 public class ApplicationConfig {
 }
