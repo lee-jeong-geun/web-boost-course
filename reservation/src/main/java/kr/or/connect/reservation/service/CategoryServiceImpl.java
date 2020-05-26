@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    
+
     CategoryDao categoryDao;
 
     @Autowired
@@ -25,5 +25,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public int getCategoryCount(int id) {
         return categoryDao.selectCount(id);
+    }
+
+    @Override
+    public int getCategoryAllCount() {
+        return categoryDao.selectAllCount();
     }
 }
