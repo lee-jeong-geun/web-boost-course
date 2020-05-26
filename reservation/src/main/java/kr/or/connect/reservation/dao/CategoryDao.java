@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static kr.or.connect.reservation.dao.CategoryDaoSqls.SELECT_ALL_SQL;
-import static kr.or.connect.reservation.dao.CategoryDaoSqls.SELECT_COUNT_SQL;
+import static kr.or.connect.reservation.dao.CategoryDaoSqls.*;
 
 @Repository
 public class CategoryDao {
@@ -30,5 +30,9 @@ public class CategoryDao {
     public int selectCount(int id) {
         Map<String, ?> params = Collections.singletonMap("id", id);
         return jdbc.queryForObject(SELECT_COUNT_SQL, params, Integer.class);
+    }
+
+    public int selectAllCount() {
+        return jdbc.queryForObject(SELECT_ALL_COUNT_SQL, (Map<String, ?>) null, Integer.class);
     }
 }
