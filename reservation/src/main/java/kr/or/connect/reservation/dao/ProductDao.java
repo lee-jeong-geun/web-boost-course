@@ -8,12 +8,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static kr.or.connect.reservation.dao.ProductDaoSqls.SELECT_PRODUCT_SQL;
+import static kr.or.connect.reservation.dao.ProductDaoSqls.*;
 
 @Repository
 public class ProductDao {
@@ -31,5 +30,12 @@ public class ProductDao {
         params.put("start", start);
         params.put("limit", limit);
         return jdbc.query(SELECT_PRODUCT_SQL, params, rowMapper);
+    }
+
+    public List<ProductDto> selectAll(int start, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        return jdbc.query(SELECT_ALL_PRODUCT_SQL, params, rowMapper);
     }
 }
