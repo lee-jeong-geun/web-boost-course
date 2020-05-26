@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private ProductDao productDao;
 
@@ -20,5 +20,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<ProductDto> getProducts(int id, int start, int limit) {
         return productDao.selectById(id, start, limit);
+    }
+
+    @Override
+    public List<ProductDto> getProductsAll(int start, int limit) {
+        return productDao.selectAll(start, limit);
     }
 }

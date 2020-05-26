@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductDto> getProducts(int id, int start, int limit);
+
+    List<ProductDto> getProductsAll(int start, int limit);
 }
