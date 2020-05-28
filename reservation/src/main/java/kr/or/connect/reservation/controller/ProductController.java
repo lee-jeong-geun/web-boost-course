@@ -39,6 +39,13 @@ public class ProductController {
             totalCount = categoryService.getCategoryCount(categoryId);
             list = productService.getProducts(categoryId, start, start + 4);
         }
+
+        if(list != null) {
+            for(ProductDto productDto : list) {
+                productDto.setProductImageUrl("img/" + productDto.getProductImageUrl());
+            }
+        }
+
         map.put("totalCount", totalCount);
         map.put("items", list);
         return map;
