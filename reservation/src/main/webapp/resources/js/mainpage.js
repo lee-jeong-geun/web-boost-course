@@ -1,3 +1,5 @@
+const categoryTab = document.querySelector(".event_tab_lst");
+
 function makeRequest(method, url, body) {
     return new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
@@ -18,7 +20,8 @@ function makeRequest(method, url, body) {
     })
 }
 
-function insertDataTemplate(node, template, data) {
+function makeTemplate(node, data) {
+    const template = document.querySelector("#categoryItem").innerHTML;
     let result = [];
     result = data["items"].map(x => {
         return template.replace("{id}", x["id"]).replace("{name}", x["name"]);
@@ -28,22 +31,20 @@ function insertDataTemplate(node, template, data) {
     });
 }
 
-function insertEventCount(eventCount) {
+function insertEventCount(count) {
     const el = document.querySelector(".event_lst_txt .pink");
-    el.innerHTML = eventCount + "개";
+    el.innerHTML = count + "개";
 }
 
 async function loadCategory() {
     try {
         const data = await makeRequest("GET", "/reservation/api/categories", '');
-        const categoryList = document.querySelector(".event_tab_lst");
-        const template = document.querySelector("#categoryItem").innerHTML;
         const categoryAllCount = data["items"].map(x => {
             return x.count;
         }).reduce((sum, x) => {
             return sum + x;
         });
-        insertDataTemplate(categoryList, template, data);
+        makeTemplate(categoryTab, data);
         insertEventCount(categoryAllCount);
     } catch (e) {
         console.error(e);
