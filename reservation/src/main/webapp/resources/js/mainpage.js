@@ -28,12 +28,23 @@ function insertDataTemplate(node, template, data) {
     });
 }
 
+function insertEventCount(eventCount) {
+    const el = document.querySelector(".event_lst_txt .pink");
+    el.innerHTML = eventCount + "개";
+}
+
 async function loadCategory() {
     try {
         const data = await makeRequest("GET", "/reservation/api/categories", '');
         const categoryList = document.querySelector(".event_tab_lst");
         const template = document.querySelector("#categoryItem").innerHTML;
+        const categoryAllCount = data["items"].map(x => {
+            return x.count;
+        }).reduce((sum, x) => {
+            return sum + x;
+        });
         insertDataTemplate(categoryList, template, data);
+        insertEventCount(categoryAllCount);
     } catch (e) {
         console.error(e);
     }
