@@ -1,4 +1,5 @@
 const categoryTab = document.querySelector(".event_tab_lst");
+let categoryItemCount = [];
 
 function makeRequest(method, url, body) {
     return new Promise((resolve, reject) => {
@@ -31,7 +32,7 @@ function makeTemplate(node, data) {
     });
 }
 
-function insertEventCount(count) {
+function insertItemCount(count) {
     const el = document.querySelector(".event_lst_txt .pink");
     el.innerHTML = count + "개";
 }
@@ -39,13 +40,13 @@ function insertEventCount(count) {
 async function loadCategory() {
     try {
         const data = await makeRequest("GET", "/reservation/api/categories", '');
-        const categoryAllCount = data["items"].map(x => {
+        categoryItemCount = data["items"].map(x => {
             return x.count;
-        }).reduce((sum, x) => {
-            return sum + x;
         });
         makeTemplate(categoryTab, data);
-        insertEventCount(categoryAllCount);
+        insertItemCount(categoryItemCount.reduce((sum, x) => {
+            return sum + x;
+        }));
     } catch (e) {
         console.error(e);
     }
