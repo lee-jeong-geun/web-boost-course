@@ -52,4 +52,39 @@ async function loadCategory() {
     }
 }
 
+async function updateCategoryTab(e) {
+    const target = e.target;
+    let categoryNode;
+    if (target.tagName !== "SPAN" && target.tagName !== "A") {
+        return;
+    }
+    // todo li tag search
+    if (target.parentElement.tagName === "LI") {
+        categoryNode = target.parentNode;
+    } else {
+        categoryNode = target.parentNode.parentNode;
+    }
+    // todo makeRequest (GET, /api/products?categoryId)
+    const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNode.dataset.category);
+    // todo update categoryTab active
+    // todo Li 태그의 자식 노드중 클래스 이름에 active 찾기
+    categoryNode.parentNode.childNodes.forEach(x => {
+        if (x.nodeName === "LI") {
+            x.childNodes.forEach(y => {
+                y.childNodes.forEach(z => {
+                    console.log(z.parentElement.classList);
+                });
+                if (y.ownerDocument.documentElement.classList.contains("active")) {
+                    console.log("oh");
+                }
+            });
+        }
+    })
+    // todo insertItemCount
+
+    // todo update wrap_event_box
+}
+
 loadCategory();
+
+categoryTab.addEventListener("click", updateCategoryTab);
