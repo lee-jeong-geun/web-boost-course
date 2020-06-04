@@ -22,7 +22,7 @@ function makeRequest(method, url, body) {
     })
 }
 
-function makeTemplate(node, data) {
+function makeCategoryItemTemplate(node, data) {
     const template = document.querySelector("#categoryItem").innerHTML;
     let result = [];
     result = data["items"].map(x => {
@@ -57,14 +57,16 @@ function insertItemCount(count) {
 
 async function loadCategory() {
     try {
-        const data = await makeRequest("GET", "/reservation/api/categories", '');
+        const data = await makeRequest("GET", "/reservation/api/categories");
+        const dataProduct = await makeRequest("GET", "/reservation/api/products?categoryId=0");
         categoryItemCount = data["items"].map(x => {
             return x.count;
         });
-        makeTemplate(categoryTab, data);
+        makeCategoryItemTemplate(categoryTab, data);
         insertItemCount(categoryItemCount.reduce((sum, x) => {
             return sum + x;
         }));
+        makeProductTemplate(eventBox, dataProduct);
     } catch (e) {
         console.error(e);
     }
