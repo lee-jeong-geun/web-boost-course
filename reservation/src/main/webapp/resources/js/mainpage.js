@@ -1,4 +1,5 @@
 const categoryTab = document.querySelector(".event_tab_lst");
+const eventBox = document.querySelectorAll(".lst_event_box");
 let categoryItemCount = [];
 
 function makeRequest(method, url, body) {
@@ -32,6 +33,23 @@ function makeTemplate(node, data) {
     });
 }
 
+function makeProductTemplate(node, data) {
+    const template = document.querySelector("#itemList").innerHTML;
+    let result = [];
+    result = data["items"].map(x => {
+        return template.replace("${id}", x["productId"]).replace("${productImageUrl}", "../../" + x["productImageUrl"])
+            .replace("${description}", x["productDescription"]).replace("${description}", x["productDescription"])
+            .replace("${placeName}", x["placeName"]).replace("${content}", x["productContent"]);
+    });
+    result.forEach((x, index) => {
+        if (index <= (result.length - 1) / 2) {
+            node[0].innerHTML += x.trim();
+        } else {
+            node[1].innerHTML += x.trim();
+        }
+    });
+}
+
 function insertItemCount(count) {
     const el = document.querySelector(".event_lst_txt .pink");
     el.innerHTML = count + "개";
@@ -58,31 +76,25 @@ async function updateCategoryTab(e) {
     if (target.tagName !== "SPAN" && target.tagName !== "A") {
         return;
     }
-    // todo li tag search
     if (target.parentElement.tagName === "LI") {
         categoryNode = target.parentNode;
     } else {
         categoryNode = target.parentNode.parentNode;
     }
-    // todo makeRequest (GET, /api/products?categoryId)
-    const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNode.dataset.category);
-    // todo update categoryTab active
-    // todo Li 태그의 자식 노드중 클래스 이름에 active 찾기
-    categoryNode.parentNode.childNodes.forEach(x => {
-        if (x.nodeName === "LI") {
-            x.childNodes.forEach(y => {
-                y.childNodes.forEach(z => {
-                    console.log(z.parentElement.classList);
-                });
-                if (y.ownerDocument.documentElement.classList.contains("active")) {
-                    console.log("oh");
-                }
-            });
-        }
-    })
-    // todo insertItemCount
-
-    // todo update wrap_event_box
+    try {
+        const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNode.dataset.category);
+        document.getElementsByClassName("anchor active").item(0).classList.remove("active");
+        categoryNode.children.item(0).classList.add("active");
+        insertItemCount(data["totalCount"]);
+        eventBox.forEach(x => {
+            while (x.firstChild) {
+                x.removeChild(x.firstChild);
+            }
+        })
+        makeProductTemplate(eventBox, data);
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 loadCategory();
