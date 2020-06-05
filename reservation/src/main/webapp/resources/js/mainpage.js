@@ -1,5 +1,6 @@
 const categoryTab = document.querySelector(".event_tab_lst");
 const eventBox = document.querySelectorAll(".lst_event_box");
+const moreBox = document.querySelector(".more");
 let categoryItemCount = [];
 
 function makeRequest(method, url, body) {
@@ -99,6 +100,20 @@ async function updateCategoryTab(e) {
     }
 }
 
+async function addProductItem(e) {
+    const target = e.target;
+    if (target.className === "more") {
+        return;
+    }
+    const categoryNumber = document.getElementsByClassName("anchor active").item(0).parentElement.dataset.category;
+    const productCount = Array.from(eventBox).map(x => x.childElementCount).reduce((sum, x) => {
+        return sum + x;
+    });
+    const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNumber + "&start=" + productCount);
+    makeProductTemplate(eventBox, data);
+}
+
 loadCategory();
 
 categoryTab.addEventListener("click", updateCategoryTab);
+moreBox.addEventListener("click", addProductItem);
