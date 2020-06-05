@@ -1,7 +1,6 @@
 const categoryTab = document.querySelector(".event_tab_lst");
 const eventBox = document.querySelectorAll(".lst_event_box");
 const moreBox = document.querySelector(".more");
-let categoryItemCount = [];
 
 function makeRequest(method, url, body) {
     return new Promise((resolve, reject) => {
@@ -60,13 +59,13 @@ async function loadCategory() {
     try {
         const data = await makeRequest("GET", "/reservation/api/categories");
         const dataProduct = await makeRequest("GET", "/reservation/api/products?categoryId=0");
-        categoryItemCount = data["items"].map(x => {
+        const categoryItemCount = data["items"].map(x => {
             return x.count;
+        }).reduce((sum, x) => {
+            return sum + x;
         });
         makeCategoryItemTemplate(categoryTab, data);
-        insertItemCount(categoryItemCount.reduce((sum, x) => {
-            return sum + x;
-        }));
+        insertItemCount(categoryItemCount);
         makeProductTemplate(eventBox, dataProduct);
     } catch (e) {
         console.error(e);
