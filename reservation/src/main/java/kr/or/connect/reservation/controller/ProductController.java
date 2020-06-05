@@ -34,12 +34,11 @@ public class ProductController {
         Map<String, Object> map = new HashMap<>();
         if (categoryId == 0) {
             totalCount = categoryService.getCategoryAllCount();
-            list = productService.getProductsAll(start, start + 4);
+            list = productService.getProductsAll(start, 4);
         } else {
             totalCount = categoryService.getCategoryCount(categoryId);
-            list = productService.getProducts(categoryId, start, start + 4);
+            list = productService.getProducts(categoryId, start, 4);
         }
-
         if(list != null) {
             for(ProductDto productDto : list) {
                 productDto.setProductImageUrl("img/" + productDto.getProductImageUrl());
