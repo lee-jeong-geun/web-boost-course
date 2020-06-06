@@ -84,6 +84,9 @@ async function updateCategoryTab(e) {
         categoryNode = target.parentNode.parentNode;
     }
     try {
+        if (moreBox.childElementCount === 0) {
+            moreBox.innerHTML += document.querySelector("#moreBtn").innerHTML.trim();
+        }
         const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNode.dataset.category);
         document.getElementsByClassName("anchor active").item(0).classList.remove("active");
         categoryNode.children.item(0).classList.add("active");
