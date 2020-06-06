@@ -92,7 +92,7 @@ async function updateCategoryTab(e) {
             while (x.firstChild) {
                 x.removeChild(x.firstChild);
             }
-        })
+        });
         makeProductTemplate(eventBox, data);
     } catch (e) {
         console.error(e);
@@ -104,12 +104,22 @@ async function addProductItem(e) {
     if (target.className === "more") {
         return;
     }
-    const categoryNumber = document.getElementsByClassName("anchor active").item(0).parentElement.dataset.category;
-    const productCount = Array.from(eventBox).map(x => x.childElementCount).reduce((sum, x) => {
-        return sum + x;
-    });
-    const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNumber + "&start=" + productCount);
-    makeProductTemplate(eventBox, data);
+    try {
+        const categoryNumber = document.getElementsByClassName("anchor active").item(0).parentElement.dataset.category;
+        const productCount = Array.from(eventBox).map(x => x.childElementCount).reduce((sum, x) => {
+            return sum + x;
+        });
+        const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNumber + "&start=" + productCount);
+        makeProductTemplate(eventBox, data);
+        const updateProductCount = Array.from(eventBox).map(x => x.childElementCount).reduce((sum, x) => {
+            return sum + x;
+        });
+        if (updateProductCount === data["totalCount"]) {
+            target.parentNode.removeChild(target);
+        }
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 loadCategory();
