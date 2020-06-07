@@ -125,7 +125,6 @@ async function addProductItem(e) {
     }
 }
 
-loadCategory();
-
+window.addEventListener("DOMContentLoaded", loadCategory);
 categoryTab.addEventListener("click", updateCategoryTab);
 moreBox.addEventListener("click", addProductItem);
