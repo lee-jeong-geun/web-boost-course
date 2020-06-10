@@ -1,6 +1,8 @@
 const categoryTab = document.querySelector(".event_tab_lst");
 const eventBox = document.querySelectorAll(".lst_event_box");
 const moreBox = document.querySelector(".more");
+const promotionBox = document.querySelector(".visual_img");
+let promotionList = [];
 
 function makeRequest(method, url, body) {
     return new Promise((resolve, reject) => {
@@ -55,18 +57,24 @@ function insertItemCount(count) {
     el.innerHTML = count + "개";
 }
 
-async function loadCategory() {
+async function loadData() {
+    const promotionTemplate = document.querySelector("#promotionItem");
     try {
-        const data = await makeRequest("GET", "/reservation/api/categories");
+        const dataCategory = await makeRequest("GET", "/reservation/api/categories");
         const dataProduct = await makeRequest("GET", "/reservation/api/products?categoryId=0");
-        const categoryItemCount = data["items"].map(x => {
+        const dataPromotion = await makeRequest("GET", "/reservation/api/promotions");
+        const categoryItemCount = dataCategory["items"].map(x => {
             return x.count;
         }).reduce((sum, x) => {
             return sum + x;
         });
-        makeCategoryItemTemplate(categoryTab, data);
+        promotionList = dataPromotion["items"].map(x => {
+            return promotionTemplate.innerHTML.replace("${promotionImageUrl}", "../../" + x["productImageUrl"]).trim();
+        });
+        makeCategoryItemTemplate(categoryTab, dataCategory);
         insertItemCount(categoryItemCount);
         makeProductTemplate(eventBox, dataProduct);
+        setInterval(createPromotion, 1000);
     } catch (e) {
         console.error(e);
     }
@@ -125,6 +133,33 @@ async function addProductItem(e) {
     }
 }
 
-window.addEventListener("DOMContentLoaded", loadCategory);
+var promotionIndex = 0;
+
+function insertPromotionItem() {
+    promotionBox.innerHTML = promotionList[promotionIndex];
+    promotionBox.innerHTML += promotionList[(promotionIndex + 1) % promotionList.length];
+    promotionBox.childNodes.forEach(x => {
+        x.style.right = "0px";
+        x.style.transform = "translate(-0px)";
+        x.style.transition = "right 1s";
+    });
+}
+
+function createPromotion() {
+    if (promotionBox.childElementCount === 0) {
+        insertPromotionItem();
+    } else {
+        promotionBox.childNodes.forEach(x => {
+            x.style.right = parseInt(x.style.right) + 413  + "px";
+        });
+        if (parseInt(promotionBox.childNodes[0].style.right) >= 414) {
+            promotionIndex = (promotionIndex + 1) % 11;
+            insertPromotionItem();
+        }
+    }
+}
+
+
+window.addEventListener("DOMContentLoaded", loadData);
 categoryTab.addEventListener("click", updateCategoryTab);
 moreBox.addEventListener("click", addProductItem);
