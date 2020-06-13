@@ -1,11 +1,11 @@
-const categoryTab = document.querySelector(".event_tab_lst");
-const eventBox = document.querySelectorAll(".lst_event_box");
-const moreBox = document.querySelector(".more");
-const promotionBox = document.querySelector(".visual_img");
-let promotionList = [];
+(() => {
+    const categoryTab = document.querySelector(".event_tab_lst");
+    const eventBox = document.querySelectorAll(".lst_event_box");
+    const moreBox = document.querySelector(".more");
+    const promotionBox = document.querySelector(".visual_img");
+    let promotionList = [];
 
-function makeRequest(method, url, body) {
-    return new Promise((resolve, reject) => {
+    const makeRequest = (method, url, body) => new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
 
         request.onreadystatechange = function () {
@@ -21,145 +21,129 @@ function makeRequest(method, url, body) {
         request.setRequestHeader('Content-type', 'application/json');
         request.responseType = 'json';
         request.send(JSON.stringify(body));
-    })
-}
-
-function makeCategoryItemTemplate(node, data) {
-    const template = document.querySelector("#categoryItem").innerHTML;
-    let result = [];
-    result = data["items"].map(x => {
-        return template.replace("{id}", x["id"]).replace("{name}", x["name"]);
     });
-    result.forEach(x => {
-        node.innerHTML += x.trim();
-    });
-}
 
-function makeProductTemplate(node, data) {
-    const template = document.querySelector("#itemList").innerHTML;
-    let result = [];
-    result = data["items"].map(x => {
-        return template.replace("${id}", x["productId"]).replace("${productImageUrl}", "../../" + x["productImageUrl"])
-            .replace("${description}", x["productDescription"]).replace("${description}", x["productDescription"])
-            .replace("${placeName}", x["placeName"]).replace("${content}", x["productContent"]);
-    });
-    result.forEach((x, index) => {
-        if (index <= (result.length - 1) / 2) {
-            node[0].innerHTML += x.trim();
-        } else {
-            node[1].innerHTML += x.trim();
-        }
-    });
-}
+    const makeCategoryItemTemplate = (node, {items}) => {
+        const template = document.querySelector("#categoryItem").innerHTML;
 
-function insertItemCount(count) {
-    const el = document.querySelector(".event_lst_txt .pink");
-    el.innerHTML = count + "개";
-}
-
-async function loadData() {
-    const promotionTemplate = document.querySelector("#promotionItem");
-    try {
-        const dataCategory = await makeRequest("GET", "/reservation/api/categories");
-        const dataProduct = await makeRequest("GET", "/reservation/api/products?categoryId=0");
-        const dataPromotion = await makeRequest("GET", "/reservation/api/promotions");
-        const categoryItemCount = dataCategory["items"].map(x => {
-            return x.count;
-        }).reduce((sum, x) => {
-            return sum + x;
+        const result = items.map(({id, name}) => {
+            return template.replace("{id}", id)
+                .replace("{name}", name);
         });
-        promotionList = dataPromotion["items"].map(x => {
-            return promotionTemplate.innerHTML.replace("${promotionImageUrl}", "../../" + x["productImageUrl"]).trim();
-        });
-        makeCategoryItemTemplate(categoryTab, dataCategory);
-        insertItemCount(categoryItemCount);
-        makeProductTemplate(eventBox, dataProduct);
-        setInterval(createPromotion, 1000);
-    } catch (e) {
-        console.error(e);
-    }
-}
 
-async function updateCategoryTab(e) {
-    const target = e.target;
-    let categoryNode;
-    if (target.tagName !== "SPAN" && target.tagName !== "A") {
-        return;
-    }
-    if (target.parentElement.tagName === "LI") {
-        categoryNode = target.parentNode;
-    } else {
-        categoryNode = target.parentNode.parentNode;
-    }
-    try {
-        if (moreBox.childElementCount === 0) {
-            moreBox.innerHTML += document.querySelector("#moreBtn").innerHTML.trim();
+        node.innerHTML += result.reduce((sum, x) => sum += x.trim(), '');
+    };
+
+    const makeProductTemplate = (node, {items}) => {
+        const template = document.querySelector("#itemList").innerHTML;
+
+        const result = items.map(({productId, productImageUrl, productDescription, placeName, productContent}) => {
+            return template.replace("${id}", productId)
+                .replace("${productImageUrl}", "../../" + productImageUrl)
+                .replace("${description}", productDescription)
+                .replace("${description}", productDescription)
+                .replace("${placeName}", placeName)
+                .replace("${content}", productContent);
+        });
+
+        const div = Math.round(result.length) / 2;
+        result.forEach((x, index) => node[Math.floor(index / div)].innerHTML += x.trim());
+    };
+
+    const insertItemCount = count => document.querySelector(".event_lst_txt .pink").innerHTML = `${count}개`;
+
+    const eventBoxProductCount = node => Array.from(node).map(x => x.childElementCount).reduce((sum, x) => sum + x);
+
+    async function loadData() {
+        try {
+            const promotionTemplate = document.querySelector("#promotionItem");
+            const dataCategory = await makeRequest("GET", "/reservation/api/categories");
+            const dataProduct = await makeRequest("GET", "/reservation/api/products?categoryId=0");
+            const {items} = await makeRequest("GET", "/reservation/api/promotions");
+            const categoryItemCount = dataCategory.items
+                .map(x => x.count)
+                .reduce((sum, x) => sum + x);
+
+            promotionList = items.map(({productImageUrl}) => promotionTemplate.innerHTML
+                .replace("${promotionImageUrl}", `../../${productImageUrl}`)
+                .trim());
+            makeCategoryItemTemplate(categoryTab, dataCategory);
+            insertItemCount(categoryItemCount);
+            makeProductTemplate(eventBox, dataProduct);
+            insertPromotionItem();
+            setInterval(createPromotion, 1000);
+        } catch (e) {
+            console.error(e);
         }
-        const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNode.dataset.category);
-        document.getElementsByClassName("anchor active").item(0).classList.remove("active");
-        categoryNode.children.item(0).classList.add("active");
-        insertItemCount(data["totalCount"]);
-        eventBox.forEach(x => {
-            while (x.firstChild) {
-                x.removeChild(x.firstChild);
+    }
+
+    async function updateCategoryTab({target}) {
+        if (target.tagName !== "SPAN" && target.tagName !== "A") {
+            return;
+        }
+        const {tagName} = target.parentElement;
+        const categoryNode = tagName === 'LI' ? target.parentNode : target.parentNode.parentNode;
+        try {
+            if (moreBox.childElementCount === 0) {
+                moreBox.innerHTML += document.querySelector("#moreBtn").innerHTML.trim();
             }
-        });
-        makeProductTemplate(eventBox, data);
-    } catch (e) {
-        console.error(e);
-    }
-}
-
-async function addProductItem(e) {
-    const target = e.target;
-    if (target.className === "more") {
-        return;
-    }
-    try {
-        const categoryNumber = document.getElementsByClassName("anchor active").item(0).parentElement.dataset.category;
-        const productCount = Array.from(eventBox).map(x => x.childElementCount).reduce((sum, x) => {
-            return sum + x;
-        });
-        const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNumber + "&start=" + productCount);
-        makeProductTemplate(eventBox, data);
-        const updateProductCount = Array.from(eventBox).map(x => x.childElementCount).reduce((sum, x) => {
-            return sum + x;
-        });
-        if (updateProductCount === data["totalCount"]) {
-            target.parentNode.removeChild(target);
+            const data = await makeRequest("GET", `/reservation/api/products?categoryId=${categoryNode.dataset.category}`);
+            document.getElementsByClassName("anchor active").item(0).classList.remove("active");
+            categoryNode.children.item(0).classList.add("active");
+            insertItemCount(data.totalCount);
+            eventBox.forEach(x => {
+                while (x.firstChild) {
+                    x.removeChild(x.firstChild);
+                }
+            });
+            makeProductTemplate(eventBox, data);
+        } catch (e) {
+            console.error(e);
         }
-    } catch (e) {
-        console.error(e);
     }
-}
 
-var promotionIndex = 0;
+    async function addProductItem({target}) {
+        if (target.className === "more") {
+            return;
+        }
+        try {
+            const categoryNumber = document.getElementsByClassName("anchor active").item(0).parentElement.dataset.category;
+            const productCount = eventBoxProductCount(eventBox);
+            const data = await makeRequest("GET", "/reservation/api/products?categoryId=" + categoryNumber + "&start=" + productCount);
+            makeProductTemplate(eventBox, data);
+            const updateProductCount = eventBoxProductCount(eventBox);
 
-function insertPromotionItem() {
-    promotionBox.innerHTML = promotionList[promotionIndex];
-    promotionBox.innerHTML += promotionList[(promotionIndex + 1) % promotionList.length];
-    promotionBox.childNodes.forEach(x => {
-        x.style.right = "0px";
-        x.style.transform = "translate(-0px)";
-        x.style.transition = "right 1s";
-    });
-}
+            if (updateProductCount === data.totalCount) {
+                target.parentNode.removeChild(target);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
-function createPromotion() {
-    if (promotionBox.childElementCount === 0) {
-        insertPromotionItem();
-    } else {
+    var promotionIndex = 0;
+
+    function insertPromotionItem() {
+        promotionBox.innerHTML = promotionList[promotionIndex] + promotionList[(promotionIndex + 1) % promotionList.length];
         promotionBox.childNodes.forEach(x => {
-            x.style.right = parseInt(x.style.right) + 413  + "px";
+            x.style.right = "0px";
+            x.style.transform = "translate(-0px)";
+            x.style.transition = "right 0.5s";
         });
-        if (parseInt(promotionBox.childNodes[0].style.right) >= 414) {
+    }
+
+    function createPromotion() {
+        const {width} = promotionBox.childNodes[0].getBoundingClientRect();
+        promotionBox.childNodes.forEach(x => {
+            x.style.right = parseInt(x.style.right) + width - 1 + "px";
+        });
+        if (parseInt(promotionBox.childNodes[0].style.right) >= width) {
             promotionIndex = (promotionIndex + 1) % 11;
             insertPromotionItem();
         }
     }
-}
 
-
-window.addEventListener("DOMContentLoaded", loadData);
-categoryTab.addEventListener("click", updateCategoryTab);
-moreBox.addEventListener("click", addProductItem);
+    window.addEventListener("DOMContentLoaded", loadData);
+    categoryTab.addEventListener("click", updateCategoryTab);
+    moreBox.addEventListener("click", addProductItem);
+})();
