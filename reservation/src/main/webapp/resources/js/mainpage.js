@@ -27,8 +27,8 @@
         const template = document.querySelector("#categoryItem").innerHTML;
 
         const result = items.map(({id, name}) => {
-            return template.replace("{id}", id)
-                .replace("{name}", name);
+            return template.replace("${id}", id)
+                .replace("${name}", name);
         });
 
         node.innerHTML += result.reduce((sum, x) => sum += x.trim(), '');
