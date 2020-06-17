@@ -71,7 +71,7 @@
             insertItemCount(categoryItemCount);
             makeProductTemplate(eventBox, dataProduct);
             insertPromotionItem();
-            setInterval(createPromotion, 1000);
+            setInterval(createPromotion, 500);
         } catch (e) {
             console.error(e);
         }
@@ -106,6 +106,9 @@
         if (target.className === "more") {
             return;
         }
+        if (target.className !== "btn") {
+            target = target.parentNode;
+        }
         try {
             const categoryNumber = document.getElementsByClassName("anchor active").item(0).parentElement.dataset.category;
             const productCount = eventBoxProductCount(eventBox);
@@ -127,7 +130,6 @@
         promotionBox.innerHTML = promotionList[promotionIndex] + promotionList[(promotionIndex + 1) % promotionList.length];
         promotionBox.childNodes.forEach(x => {
             x.style.right = "0px";
-            x.style.transform = "translate(-0px)";
             x.style.transition = "right 0.5s";
         });
     }
