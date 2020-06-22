@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@ComponentScan(basePackages = {"kr.or.connect.reservation.dao", "kr.or.connect.reservation.service"})
+@ComponentScan(basePackages = {"kr.or.connect.reservation"})
 @Import({DBConfig.class})
 @PropertySource("classpath:application.properties")
 public class ApplicationConfig {
