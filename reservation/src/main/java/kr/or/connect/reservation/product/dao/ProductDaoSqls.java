@@ -1,4 +1,4 @@
-package kr.or.connect.reservation.dao;
+package kr.or.connect.reservation.product.dao;
 
 public class ProductDaoSqls {
     public static final String SELECT_PRODUCT_SQL = "select t1.id displayInfoId, t2.id productId, t2.description productDescription, t1.place_name placeName, t2.content productContent," +

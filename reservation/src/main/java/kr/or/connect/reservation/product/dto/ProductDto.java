@@ -1,4 +1,4 @@
-package kr.or.connect.reservation.dto;
+package kr.or.connect.reservation.product.dto;
 
 public class ProductDto {
     private int displayInfoId;

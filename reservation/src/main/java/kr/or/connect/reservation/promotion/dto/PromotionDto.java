@@ -1,4 +1,4 @@
-package kr.or.connect.reservation.dto;
+package kr.or.connect.reservation.promotion.dto;
 
 public class PromotionDto {
     private int id;

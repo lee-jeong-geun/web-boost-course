@@ -1,7 +1,7 @@
-package kr.or.connect.reservation.service;
+package kr.or.connect.reservation.category.service;
 
-import kr.or.connect.reservation.dao.CategoryDao;
-import kr.or.connect.reservation.dto.CategoryDto;
+import kr.or.connect.reservation.category.dao.CategoryDao;
+import kr.or.connect.reservation.category.dto.CategoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

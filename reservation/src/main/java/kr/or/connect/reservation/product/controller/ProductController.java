@@ -1,8 +1,8 @@
-package kr.or.connect.reservation.controller;
+package kr.or.connect.reservation.product.controller;
 
-import kr.or.connect.reservation.dto.ProductDto;
+import kr.or.connect.reservation.product.dto.ProductDto;
 import kr.or.connect.reservation.category.service.CategoryService;
-import kr.or.connect.reservation.service.ProductService;
+import kr.or.connect.reservation.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

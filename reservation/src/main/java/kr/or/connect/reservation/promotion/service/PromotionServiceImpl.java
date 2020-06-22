@@ -1,7 +1,7 @@
-package kr.or.connect.reservation.service;
+package kr.or.connect.reservation.promotion.service;
 
-import kr.or.connect.reservation.dao.PromotionDao;
-import kr.or.connect.reservation.dto.PromotionDto;
+import kr.or.connect.reservation.promotion.dao.PromotionDao;
+import kr.or.connect.reservation.promotion.dto.PromotionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

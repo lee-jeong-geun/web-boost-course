@@ -1,6 +1,6 @@
-package kr.or.connect.reservation.dao;
+package kr.or.connect.reservation.promotion.dao;
 
-import kr.or.connect.reservation.dto.PromotionDto;
+import kr.or.connect.reservation.promotion.dto.PromotionDto;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.List;
 
-import static kr.or.connect.reservation.dao.PromotionDaoSqls.SELECT_ALL_SQL;
+import static kr.or.connect.reservation.promotion.dao.PromotionDaoSqls.SELECT_ALL_SQL;
 
 @Repository
 public class PromotionDao {

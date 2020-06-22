@@ -1,4 +1,4 @@
-package kr.or.connect.reservation.dto;
+package kr.or.connect.reservation.category.dto;
 
 public class Category {
     private int id;

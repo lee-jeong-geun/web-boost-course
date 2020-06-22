@@ -1,6 +1,6 @@
-package kr.or.connect.reservation.dao;
+package kr.or.connect.reservation.category.dao;
 
-import kr.or.connect.reservation.dto.CategoryDto;
+import kr.or.connect.reservation.category.dto.CategoryDto;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -8,11 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static kr.or.connect.reservation.dao.CategoryDaoSqls.*;
+import static kr.or.connect.reservation.category.dao.CategoryDaoSqls.*;
 
 @Repository
 public class CategoryDao {

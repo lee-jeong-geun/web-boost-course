@@ -1,6 +1,6 @@
-package kr.or.connect.reservation.dao;
+package kr.or.connect.reservation.product.dao;
 
-import kr.or.connect.reservation.dto.ProductDto;
+import kr.or.connect.reservation.product.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static kr.or.connect.reservation.dao.ProductDaoSqls.*;
+import static kr.or.connect.reservation.product.dao.ProductDaoSqls.*;
 
 @Repository
 public class ProductDao {

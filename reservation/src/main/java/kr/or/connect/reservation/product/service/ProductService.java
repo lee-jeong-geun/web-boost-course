@@ -1,6 +1,6 @@
-package kr.or.connect.reservation.service;
+package kr.or.connect.reservation.product.service;
 
-import kr.or.connect.reservation.dto.ProductDto;
+import kr.or.connect.reservation.product.dto.ProductDto;
 
 import java.util.List;
 

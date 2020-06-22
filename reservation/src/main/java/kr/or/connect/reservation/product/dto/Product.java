@@ -1,4 +1,6 @@
-package kr.or.connect.reservation.dto;
+package kr.or.connect.reservation.product.dto;
+
+import kr.or.connect.reservation.category.dto.Category;
 
 import java.util.Date;
 
