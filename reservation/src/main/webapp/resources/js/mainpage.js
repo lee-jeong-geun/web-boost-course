@@ -140,7 +140,7 @@
             x.style.right = parseInt(x.style.right) + width - 1 + "px";
         });
         if (parseInt(promotionBox.childNodes[0].style.right) >= width) {
-            promotionIndex = (promotionIndex + 1) % 11;
+            promotionIndex = (promotionIndex + 1) % promotionList.length;
             insertPromotionItem();
         }
     }
