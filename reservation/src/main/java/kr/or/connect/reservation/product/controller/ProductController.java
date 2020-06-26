@@ -1,7 +1,6 @@
 package kr.or.connect.reservation.product.controller;
 
 import kr.or.connect.reservation.product.dto.ProductDto;
-import kr.or.connect.reservation.category.service.CategoryService;
 import kr.or.connect.reservation.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +17,10 @@ import java.util.Map;
 public class ProductController {
     private static final int PRODUCT_LIMIT = 4;
 
-    private CategoryService categoryService;
     private ProductService productService;
 
     @Autowired
-    public ProductController(CategoryService categoryService, ProductService productService) {
-        this.categoryService = categoryService;
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -34,10 +31,10 @@ public class ProductController {
         List<ProductDto> list = null;
         Map<String, Object> map = new HashMap<>();
         if (categoryId == 0) {
-            totalCount = categoryService.getCategoryAllCount();
+            totalCount = productService.getProductAllCount();
             list = productService.getProductsAll(start, PRODUCT_LIMIT);
         } else {
-            totalCount = categoryService.getCategoryCount(categoryId);
+            totalCount = productService.getProductCount(categoryId);
             list = productService.getProducts(categoryId, start, PRODUCT_LIMIT);
         }
 
