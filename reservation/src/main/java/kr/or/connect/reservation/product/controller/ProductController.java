@@ -16,6 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "/api/products")
 public class ProductController {
+    private static final int PRODUCT_LIMIT = 4;
 
     private CategoryService categoryService;
     private ProductService productService;
@@ -27,22 +28,17 @@ public class ProductController {
     }
 
     @GetMapping
-    public Map<String, Object> products(@RequestParam(value = "categoryId", required = false, defaultValue = "0") int categoryId,
-                                        @RequestParam(value = "start", required = false, defaultValue = "0") int start) {
+    public Map<String, Object> products(@RequestParam(defaultValue = "0") int categoryId,
+                                        @RequestParam(defaultValue = "0") int start) {
         int totalCount = 0;
         List<ProductDto> list = null;
         Map<String, Object> map = new HashMap<>();
         if (categoryId == 0) {
             totalCount = categoryService.getCategoryAllCount();
-            list = productService.getProductsAll(start, 4);
+            list = productService.getProductsAll(start, PRODUCT_LIMIT);
         } else {
             totalCount = categoryService.getCategoryCount(categoryId);
-            list = productService.getProducts(categoryId, start, 4);
-        }
-        if(list != null) {
-            for(ProductDto productDto : list) {
-                productDto.setProductImageUrl("img/" + productDto.getProductImageUrl());
-            }
+            list = productService.getProducts(categoryId, start, PRODUCT_LIMIT);
         }
 
         map.put("totalCount", totalCount);
