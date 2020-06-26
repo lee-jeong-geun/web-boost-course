@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path="/api/promotions")
+@RequestMapping(path = "/api/promotions")
 public class PromotionController {
 
     private PromotionService promotionService;
@@ -26,9 +26,6 @@ public class PromotionController {
     public Map<String, Object> getPromotions() {
         Map<String, Object> map = new HashMap<>();
         List<PromotionDto> list = promotionService.getPromotions();
-        for(PromotionDto promotionDto : list) {
-            promotionDto.setProductImageUrl("img/" + promotionDto.getProductImageUrl());
-        }
         map.put("items", list);
         return map;
     }
