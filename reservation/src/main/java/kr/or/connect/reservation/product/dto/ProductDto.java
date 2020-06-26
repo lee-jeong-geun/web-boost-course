@@ -49,7 +49,7 @@ public class ProductDto {
     }
 
     public String getProductImageUrl() {
-        return productImageUrl;
+        return "img/" + productImageUrl;
     }
 
     public void setProductImageUrl(String productImageUrl) {
