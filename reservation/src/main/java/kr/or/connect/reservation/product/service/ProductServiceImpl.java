@@ -26,4 +26,14 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> getProductsAll(int start, int limit) {
         return productDao.selectAll(start, limit);
     }
+
+    @Override
+    public int getProductCount(int id) {
+        return productDao.selectCount(id);
+    }
+
+    @Override
+    public int getProductAllCount() {
+        return productDao.selectAllCount();
+    }
 }
