@@ -1,6 +1,7 @@
 package kr.or.connect.reservation.product.controller;
 
 import kr.or.connect.reservation.product.dto.ProductDto;
+import kr.or.connect.reservation.product.service.ProductImageService;
 import kr.or.connect.reservation.product.service.ProductPriceService;
 import kr.or.connect.reservation.product.service.ProductService;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,12 @@ public class ProductController {
 
     private ProductService productService;
     private ProductPriceService productPriceService;
+    private ProductImageService productImageService;
 
-    public ProductController(ProductService productService, ProductPriceService productPriceService) {
+    public ProductController(ProductService productService, ProductPriceService productPriceService, ProductImageService productImageService) {
         this.productService = productService;
         this.productPriceService = productPriceService;
+        this.productImageService = productImageService;
     }
 
     @GetMapping
@@ -46,6 +49,7 @@ public class ProductController {
     public Map<String, Object> product(@PathVariable(name = "displayInfoId") int id) {
         Map<String, Object> map = new HashMap<>();
         map.put("productPrices", productPriceService.getProductPrices(id));
+        map.put("productImages", productImageService.getProductImages(id));
         return map;
     }
 }
