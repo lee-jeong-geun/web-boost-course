@@ -56,7 +56,6 @@ public class ProductPriceDto {
     }
 
     public LocalDateTime getCreateDate() {
-        System.out.println(createDate);
         return createDate;
     }
 
