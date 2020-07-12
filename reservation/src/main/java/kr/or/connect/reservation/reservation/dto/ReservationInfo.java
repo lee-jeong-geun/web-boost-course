@@ -22,80 +22,40 @@ public class ReservationInfo {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getReservationName() {
         return reservationName;
     }
 
-    public void setReservationName(String reservationName) {
-        this.reservationName = reservationName;
-    }
-
-    public String getReservationTel() {
+    public String getReservationTelephone() {
         return reservationTelephone;
-    }
-
-    public void setReservationTel(String reservationTel) {
-        this.reservationTelephone = reservationTel;
     }
 
     public String getReservationEmail() {
         return reservationEmail;
     }
 
-    public void setReservationEmail(String reservationEmail) {
-        this.reservationEmail = reservationEmail;
-    }
-
     public Date getReservationDate() {
         return reservationDate;
-    }
-
-    public void setReservationDate(Date reservationDate) {
-        this.reservationDate = reservationDate;
     }
 
     public int getCancelFlag() {
         return cancelFlag;
     }
 
-    public void setCancelFlag(int cancelFlag) {
-        this.cancelFlag = cancelFlag;
-    }
-
     public Date getCreateDate() {
         return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public Date getModifyDate() {
         return modifyDate;
     }
 
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
-    }
-
     public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public DisplayInfo getDisplayInfo() {
         return displayInfo;
-    }
-
-    public void setDisplayInfo(DisplayInfo displayInfo) {
-        this.displayInfo = displayInfo;
     }
 
     @Override

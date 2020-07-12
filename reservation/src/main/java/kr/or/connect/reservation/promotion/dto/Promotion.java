@@ -11,16 +11,8 @@ public class Promotion {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Product getProduct() {
         return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     @Override
