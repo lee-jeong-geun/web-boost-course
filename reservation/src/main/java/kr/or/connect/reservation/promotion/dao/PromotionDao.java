@@ -1,6 +1,7 @@
 package kr.or.connect.reservation.promotion.dao;
 
 import kr.or.connect.reservation.promotion.dto.PromotionDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,6 +17,7 @@ public class PromotionDao {
     private NamedParameterJdbcTemplate jdbc;
     private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(PromotionDto.class);
 
+    @Autowired
     public PromotionDao(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }

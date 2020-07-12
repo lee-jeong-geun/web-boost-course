@@ -2,6 +2,7 @@ package kr.or.connect.reservation.product.service;
 
 import kr.or.connect.reservation.product.dao.ProductPriceDao;
 import kr.or.connect.reservation.product.dto.ProductPriceDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class ProductPriceServiceImpl implements ProductPriceService {
     private ProductPriceDao productPriceDao;
 
+    @Autowired
     public ProductPriceServiceImpl(ProductPriceDao productPriceDao) {
         this.productPriceDao = productPriceDao;
     }

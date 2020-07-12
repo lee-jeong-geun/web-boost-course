@@ -4,6 +4,7 @@ import kr.or.connect.reservation.product.dto.ProductDto;
 import kr.or.connect.reservation.product.service.ProductImageService;
 import kr.or.connect.reservation.product.service.ProductPriceService;
 import kr.or.connect.reservation.product.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class ProductController {
     private ProductPriceService productPriceService;
     private ProductImageService productImageService;
 
+    @Autowired
     public ProductController(ProductService productService, ProductPriceService productPriceService, ProductImageService productImageService) {
         this.productService = productService;
         this.productPriceService = productPriceService;

@@ -1,6 +1,7 @@
 package kr.or.connect.reservation.category.dao;
 
 import kr.or.connect.reservation.category.dto.CategoryDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,6 +17,7 @@ public class CategoryDao {
     private NamedParameterJdbcTemplate jdbc;
     private RowMapper<CategoryDto> rowMapper = BeanPropertyRowMapper.newInstance(CategoryDto.class);
 
+    @Autowired
     public CategoryDao(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }

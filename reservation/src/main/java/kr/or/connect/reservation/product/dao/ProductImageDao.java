@@ -1,6 +1,7 @@
 package kr.or.connect.reservation.product.dao;
 
 import kr.or.connect.reservation.product.dto.ProductImageDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,6 +20,7 @@ public class ProductImageDao {
     private NamedParameterJdbcTemplate jdbc;
     private RowMapper<ProductImageDto> rowMapper = BeanPropertyRowMapper.newInstance(ProductImageDto.class);
 
+    @Autowired
     public ProductImageDao(DataSource dataSource) {
         jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
