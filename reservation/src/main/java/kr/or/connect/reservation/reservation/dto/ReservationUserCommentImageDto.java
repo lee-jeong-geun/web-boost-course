@@ -11,7 +11,7 @@ public class ReservationUserCommentImageDto {
     private int fileId;
     private String fileName;
     private String saveFileName;
-    private int deleteFlag;
+    private boolean deleteFlag;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
@@ -65,11 +65,11 @@ public class ReservationUserCommentImageDto {
         this.saveFileName = saveFileName;
     }
 
-    public int getDeleteFlag() {
+    public boolean getDeleteFlag() {
         return deleteFlag;
     }
 
-    public void setDeleteFlag(int deleteFlag) {
+    public void setDeleteFlag(boolean deleteFlag) {
         this.deleteFlag = deleteFlag;
     }
 
