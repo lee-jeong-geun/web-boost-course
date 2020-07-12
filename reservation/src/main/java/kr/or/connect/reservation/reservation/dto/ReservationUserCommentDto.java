@@ -1,6 +1,8 @@
 package kr.or.connect.reservation.reservation.dto;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ReservationUserCommentDto {
@@ -13,8 +15,10 @@ public class ReservationUserCommentDto {
     private String reservationTelephone;
     private String reservationEmail;
     private String reservationDate;
-    private Date create_date;
-    private Date modify_date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime createDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime modifyDate;
     private List<ReservationUserCommentImageDto> commentImages;
 
     public int getCommentId() {
@@ -89,20 +93,20 @@ public class ReservationUserCommentDto {
         this.reservationDate = reservationDate;
     }
 
-    public Date getCreate_date() {
-        return create_date;
+    public LocalDateTime getCreateDate() {
+        return createDate;
     }
 
-    public void setCreate_date(Date create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
     }
 
-    public Date getModify_date() {
-        return modify_date;
+    public LocalDateTime getModifyDate() {
+        return modifyDate;
     }
 
-    public void setModify_date(Date modify_date) {
-        this.modify_date = modify_date;
+    public void setModifyDate(LocalDateTime modifyDate) {
+        this.modifyDate = modifyDate;
     }
 
     public List<ReservationUserCommentImageDto> getCommentImages() {
@@ -125,8 +129,8 @@ public class ReservationUserCommentDto {
                 ", reservationTelephone='" + reservationTelephone + '\'' +
                 ", reservationEmail='" + reservationEmail + '\'' +
                 ", reservationDate='" + reservationDate + '\'' +
-                ", create_date=" + create_date +
-                ", modify_date=" + modify_date +
+                ", createDate=" + createDate +
+                ", modifyDate=" + modifyDate +
                 ", commentImages=" + commentImages +
                 '}';
     }
