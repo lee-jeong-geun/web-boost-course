@@ -4,6 +4,7 @@ import kr.or.connect.reservation.product.dto.ProductDto;
 import kr.or.connect.reservation.product.service.ProductImageService;
 import kr.or.connect.reservation.product.service.ProductPriceService;
 import kr.or.connect.reservation.product.service.ProductService;
+import kr.or.connect.reservation.reservation.service.ReservationUserCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,17 @@ public class ProductController {
     private ProductService productService;
     private ProductPriceService productPriceService;
     private ProductImageService productImageService;
+    private ReservationUserCommentService reservationUserCommentService;
 
     @Autowired
-    public ProductController(ProductService productService, ProductPriceService productPriceService, ProductImageService productImageService) {
+    public ProductController(ProductService productService,
+                             ProductPriceService productPriceService,
+                             ProductImageService productImageService,
+                             ReservationUserCommentService reservationUserCommentService) {
         this.productService = productService;
         this.productPriceService = productPriceService;
         this.productImageService = productImageService;
+        this.reservationUserCommentService = reservationUserCommentService;
     }
 
     @GetMapping
@@ -52,6 +58,7 @@ public class ProductController {
         Map<String, Object> map = new HashMap<>();
         map.put("productPrices", productPriceService.getProductPrices(id));
         map.put("productImages", productImageService.getProductImages(id));
+        map.put("comments", reservationUserCommentService.getReservationUserComments(id));
         return map;
     }
 }
