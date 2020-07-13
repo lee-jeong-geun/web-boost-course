@@ -1,6 +1,8 @@
 package kr.or.connect.reservation.display.dto;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
 
 public class DisplayInfoImageDto {
     private int displayInfoImageId;
@@ -10,8 +12,10 @@ public class DisplayInfoImageDto {
     private String saveFileName;
     private String contentType;
     private boolean deleteFlag;
-    private Date createDate;
-    private Date modifyDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime createDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime modifyDate;
 
     public int getDisplayInfoImageId() {
         return displayInfoImageId;
@@ -69,19 +73,19 @@ public class DisplayInfoImageDto {
         this.deleteFlag = deleteFlag;
     }
 
-    public Date getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
-    public Date getModifyDate() {
+    public LocalDateTime getModifyDate() {
         return modifyDate;
     }
 
-    public void setModifyDate(Date modifyDate) {
+    public void setModifyDate(LocalDateTime modifyDate) {
         this.modifyDate = modifyDate;
     }
 
