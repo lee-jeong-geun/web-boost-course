@@ -1,5 +1,6 @@
 package kr.or.connect.reservation.product.controller;
 
+import kr.or.connect.reservation.display.service.DisplayInfoImageService;
 import kr.or.connect.reservation.display.service.DisplayInfoService;
 import kr.or.connect.reservation.product.dto.ProductDto;
 import kr.or.connect.reservation.product.service.ProductImageService;
@@ -23,18 +24,21 @@ public class ProductController {
     private ProductImageService productImageService;
     private ReservationUserCommentService reservationUserCommentService;
     private DisplayInfoService displayInfoService;
+    private DisplayInfoImageService displayInfoImageService;
 
     @Autowired
     public ProductController(ProductService productService,
                              ProductPriceService productPriceService,
                              ProductImageService productImageService,
                              ReservationUserCommentService reservationUserCommentService,
-                             DisplayInfoService displayInfoService) {
+                             DisplayInfoService displayInfoService,
+                             DisplayInfoImageService displayInfoImageService) {
         this.productService = productService;
         this.productPriceService = productPriceService;
         this.productImageService = productImageService;
         this.reservationUserCommentService = reservationUserCommentService;
         this.displayInfoService = displayInfoService;
+        this.displayInfoImageService = displayInfoImageService;
     }
 
     @GetMapping
@@ -60,10 +64,11 @@ public class ProductController {
     @RequestMapping(path = "/{displayInfoId}")
     public Map<String, Object> product(@PathVariable(name = "displayInfoId") int displayInfoId) {
         Map<String, Object> map = new HashMap<>();
-        map.put("productPrices", productPriceService.getProductPrices(displayInfoId));
-        map.put("productImages", productImageService.getProductImages(displayInfoId));
-        map.put("comments", reservationUserCommentService.getReservationUserComments(displayInfoId));
         map.put("displayInfo", displayInfoService.getDisplayInfo(displayInfoId));
+        map.put("productImages", productImageService.getProductImages(displayInfoId));
+        map.put("displayInfoImage", displayInfoImageService.getDisplayInfoImage(displayInfoId));
+        map.put("comments", reservationUserCommentService.getReservationUserComments(displayInfoId));
+        map.put("productPrices", productPriceService.getProductPrices(displayInfoId));
         return map;
     }
 }
