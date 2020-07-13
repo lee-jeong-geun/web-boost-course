@@ -5,5 +5,5 @@ import kr.or.connect.reservation.product.dto.ProductPriceDto;
 import java.util.List;
 
 public interface ProductPriceService {
-    List<ProductPriceDto> getProductPrices(int productId);
+    List<ProductPriceDto> getProductPrices(int displayInfoId);
 }

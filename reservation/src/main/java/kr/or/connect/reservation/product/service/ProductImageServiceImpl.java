@@ -17,7 +17,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
-    public List<ProductImageDto> getProductImages(int productId) {
-        return productImageDao.selectByProductId(productId);
+    public List<ProductImageDto> getProductImages(int displayInfoId) {
+        return productImageDao.selectByProductId(displayInfoId);
     }
 }

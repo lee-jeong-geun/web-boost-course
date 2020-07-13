@@ -5,5 +5,5 @@ import kr.or.connect.reservation.reservation.dto.ReservationUserCommentDto;
 import java.util.List;
 
 public interface ReservationUserCommentService {
-    List<ReservationUserCommentDto> getReservationUserComments(int productId);
+    List<ReservationUserCommentDto> getReservationUserComments(int displayInfoId);
 }

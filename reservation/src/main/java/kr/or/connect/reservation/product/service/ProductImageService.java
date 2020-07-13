@@ -5,5 +5,5 @@ import kr.or.connect.reservation.product.dto.ProductImageDto;
 import java.util.List;
 
 public interface ProductImageService {
-    List<ProductImageDto> getProductImages(int productId);
+    List<ProductImageDto> getProductImages(int displayInfoId);
 }
