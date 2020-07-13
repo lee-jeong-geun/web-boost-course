@@ -16,6 +16,6 @@ public class DisplayInfoServiceImpl implements DisplayInfoService{
 
     @Override
     public DisplayInfoDto getDisplayInfo(int displayInfoId) {
-        return displayInfoDao.selectById(displayInfoId);
+        return displayInfoDao.selectByDisplayInfoId(displayInfoId);
     }
 }

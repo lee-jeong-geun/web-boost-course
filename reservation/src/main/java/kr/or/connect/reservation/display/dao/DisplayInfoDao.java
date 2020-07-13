@@ -24,7 +24,7 @@ public class DisplayInfoDao {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public DisplayInfoDto selectById(int displayInfoId) {
+    public DisplayInfoDto selectByDisplayInfoId(int displayInfoId) {
         Map<String, Object> param = Collections.singletonMap("id", displayInfoId);
         return jdbc.queryForObject(SELECT_BY_ID_SQL, param, rowMapper);
     }
