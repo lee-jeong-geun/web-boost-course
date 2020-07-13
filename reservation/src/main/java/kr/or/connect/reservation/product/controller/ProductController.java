@@ -58,12 +58,12 @@ public class ProductController {
 
     @GetMapping
     @RequestMapping(path = "/{displayInfoId}")
-    public Map<String, Object> product(@PathVariable(name = "displayInfoId") int id) {
+    public Map<String, Object> product(@PathVariable(name = "displayInfoId") int displayInfoId) {
         Map<String, Object> map = new HashMap<>();
-        map.put("productPrices", productPriceService.getProductPrices(id));
-        map.put("productImages", productImageService.getProductImages(id));
-        map.put("comments", reservationUserCommentService.getReservationUserComments(id));
-        map.put("displayInfo", displayInfoService.getDisplayInfo(id));
+        map.put("productPrices", productPriceService.getProductPrices(displayInfoId));
+        map.put("productImages", productImageService.getProductImages(displayInfoId));
+        map.put("comments", reservationUserCommentService.getReservationUserComments(displayInfoId));
+        map.put("displayInfo", displayInfoService.getDisplayInfo(displayInfoId));
         return map;
     }
 }
