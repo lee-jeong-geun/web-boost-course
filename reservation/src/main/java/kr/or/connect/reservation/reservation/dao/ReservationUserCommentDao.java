@@ -24,8 +24,8 @@ public class ReservationUserCommentDao {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<ReservationUserCommentDto> selectByProductId(int productId) {
-        Map<String, Object> param = Collections.singletonMap("id", productId);
+    public List<ReservationUserCommentDto> selectByProductId(int displayInfoId) {
+        Map<String, Object> param = Collections.singletonMap("id", displayInfoId);
         return jdbc.query(SELECT_BY_PRODUCTID_SQL, param, rowMapper);
     }
 
