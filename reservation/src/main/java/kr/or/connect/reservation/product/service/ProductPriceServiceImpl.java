@@ -18,6 +18,6 @@ public class ProductPriceServiceImpl implements ProductPriceService {
 
     @Override
     public List<ProductPriceDto> getProductPrices(int displayInfoId) {
-        return productPriceDao.selectByProductId(displayInfoId);
+        return productPriceDao.selectByDisplayInfoId(displayInfoId);
     }
 }

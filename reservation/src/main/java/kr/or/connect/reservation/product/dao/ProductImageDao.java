@@ -25,7 +25,7 @@ public class ProductImageDao {
         jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<ProductImageDto> selectByProductId(int displayInfoId) {
+    public List<ProductImageDto> selectByDisplayInfoId(int displayInfoId) {
         Map<String, ?> param = Collections.singletonMap("id", displayInfoId);
         return jdbc.query(SELECT_BY_PRODUCTIMAGE_SQL, param, rowMapper);
 
