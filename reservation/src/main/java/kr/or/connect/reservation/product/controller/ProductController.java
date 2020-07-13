@@ -1,5 +1,6 @@
 package kr.or.connect.reservation.product.controller;
 
+import kr.or.connect.reservation.display.service.DisplayInfoService;
 import kr.or.connect.reservation.product.dto.ProductDto;
 import kr.or.connect.reservation.product.service.ProductImageService;
 import kr.or.connect.reservation.product.service.ProductPriceService;
@@ -21,16 +22,19 @@ public class ProductController {
     private ProductPriceService productPriceService;
     private ProductImageService productImageService;
     private ReservationUserCommentService reservationUserCommentService;
+    private DisplayInfoService displayInfoService;
 
     @Autowired
     public ProductController(ProductService productService,
                              ProductPriceService productPriceService,
                              ProductImageService productImageService,
-                             ReservationUserCommentService reservationUserCommentService) {
+                             ReservationUserCommentService reservationUserCommentService,
+                             DisplayInfoService displayInfoService) {
         this.productService = productService;
         this.productPriceService = productPriceService;
         this.productImageService = productImageService;
         this.reservationUserCommentService = reservationUserCommentService;
+        this.displayInfoService = displayInfoService;
     }
 
     @GetMapping
@@ -59,6 +63,7 @@ public class ProductController {
         map.put("productPrices", productPriceService.getProductPrices(id));
         map.put("productImages", productImageService.getProductImages(id));
         map.put("comments", reservationUserCommentService.getReservationUserComments(id));
+        map.put("displayInfo", displayInfoService.getDisplayInfo(id));
         return map;
     }
 }
