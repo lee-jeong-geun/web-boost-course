@@ -3,7 +3,6 @@ package kr.or.connect.reservation.display.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class DisplayInfoDto {
     private int productId;
