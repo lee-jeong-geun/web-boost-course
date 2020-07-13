@@ -22,7 +22,7 @@ public class ReservationUserCommentServiceImpl implements ReservationUserComment
 
     @Override
     public List<ReservationUserCommentDto> getReservationUserComments(int displayInfoId) {
-        List<ReservationUserCommentDto> commentList = reservationUserCommentDao.selectByProductId(displayInfoId);
+        List<ReservationUserCommentDto> commentList = reservationUserCommentDao.selectByDisplayInfoId(displayInfoId);
         for (ReservationUserCommentDto reservationUserCommentDto : commentList) {
             reservationUserCommentDto.setCommentImages(reservationUserCommentImageDao.selectByCommentId(reservationUserCommentDto.getCommentId()));
         }
