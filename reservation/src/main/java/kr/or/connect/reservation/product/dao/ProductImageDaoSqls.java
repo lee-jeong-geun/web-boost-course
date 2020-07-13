@@ -1,7 +1,7 @@
 package kr.or.connect.reservation.product.dao;
 
 public class ProductImageDaoSqls {
-    public static final String SELECT_BY_PRODUCTIMAGE_SQL =
+    public static final String SELECT_BY_DISPLAYINFOID_SQL =
             "select " +
             " t1.product_id productId, " +
             " t1.id productImageId, " +

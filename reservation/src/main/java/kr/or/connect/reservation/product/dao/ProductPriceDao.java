@@ -26,6 +26,6 @@ public class ProductPriceDao {
 
     public List<ProductPriceDto> selectByDisplayInfoId(int displayInfoId) {
         Map<String, ?> param = Collections.singletonMap("id", displayInfoId);
-        return jdbc.query(SELECT_BY_PRODUCTID_SQL, param, rowMapper);
+        return jdbc.query(SELECT_BY_DISPLAYINFOID_SQL, param, rowMapper);
     }
 }

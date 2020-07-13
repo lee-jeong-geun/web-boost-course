@@ -27,7 +27,7 @@ public class ProductImageDao {
 
     public List<ProductImageDto> selectByDisplayInfoId(int displayInfoId) {
         Map<String, ?> param = Collections.singletonMap("id", displayInfoId);
-        return jdbc.query(SELECT_BY_PRODUCTIMAGE_SQL, param, rowMapper);
+        return jdbc.query(SELECT_BY_DISPLAYINFOID_SQL, param, rowMapper);
 
     }
 }

@@ -26,7 +26,7 @@ public class ReservationUserCommentDao {
 
     public List<ReservationUserCommentDto> selectByProductId(int displayInfoId) {
         Map<String, Object> param = Collections.singletonMap("id", displayInfoId);
-        return jdbc.query(SELECT_BY_PRODUCTID_SQL, param, rowMapper);
+        return jdbc.query(SELECT_BY_DISPLAYINFOID_SQL, param, rowMapper);
     }
 
 }
