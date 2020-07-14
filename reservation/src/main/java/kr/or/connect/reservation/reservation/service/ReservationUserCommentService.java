@@ -1,9 +1,7 @@
 package kr.or.connect.reservation.reservation.service;
 
-import kr.or.connect.reservation.reservation.dto.ReservationUserCommentDto;
-
-import java.util.List;
+import java.util.Map;
 
 public interface ReservationUserCommentService {
-    List<ReservationUserCommentDto> getReservationUserComments(int displayInfoId);
+    Map<String, Object> getReservationUserComments(int displayInfoId);
 }
