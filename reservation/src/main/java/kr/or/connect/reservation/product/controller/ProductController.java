@@ -64,10 +64,12 @@ public class ProductController {
     @RequestMapping(path = "/{displayInfoId}")
     public Map<String, Object> product(@PathVariable(name = "displayInfoId") int displayInfoId) {
         Map<String, Object> map = new HashMap<>();
+        Map<String, Object> comment = reservationUserCommentService.getReservationUserComments(displayInfoId);
+        map.put("averageScore", comment.get("averageScore"));
+        map.put("comments", comment.get("comments"));
         map.put("displayInfo", displayInfoService.getDisplayInfo(displayInfoId));
         map.put("productImages", productImageService.getProductImages(displayInfoId));
         map.put("displayInfoImage", displayInfoImageService.getDisplayInfoImage(displayInfoId));
-        map.put("comments", reservationUserCommentService.getReservationUserComments(displayInfoId));
         map.put("productPrices", productPriceService.getProductPrices(displayInfoId));
         return map;
     }
