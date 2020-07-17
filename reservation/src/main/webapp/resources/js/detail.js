@@ -1,4 +1,6 @@
 (() => {
+    let detailData = {};
+
     const makeRequest = (method, url, body) => new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
 
@@ -16,4 +18,12 @@
         request.responseType = 'json';
         request.send(JSON.stringify(body));
     });
+
+    async function loadData() {
+        let param = (new URL(document.location)).searchParams;
+        let id = param.get('id');
+        detailData = await makeRequest('GET', `/reservation/api/products/${id}`);
+    }
+
+    window.addEventListener("DOMContentLoaded", loadData);
 })();
