@@ -1,6 +1,4 @@
 (() => {
-    let detailData = {};
-
     const makeRequest = (method, url, body) => new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
 
@@ -22,8 +20,61 @@
     async function loadData() {
         let param = (new URL(document.location)).searchParams;
         let id = param.get('id');
-        detailData = await makeRequest('GET', `/reservation/api/products/${id}`);
+        const detailData = await makeRequest('GET', `/reservation/api/products/${id}`);
+        console.log(detailData);
+        loadComment(detailData);
         loadIntroduce(detailData.displayInfo);
+    }
+
+    function loadComment(data) {
+        const {averageScore} = data;
+        const {comments} = data;
+
+        if (comments.length === 0) {
+            return;
+        }
+
+        const template = document.querySelector("#commentTemplate").innerHTML;
+        const bindTemplate = Handlebars.compile(template);
+
+        const comment = getComment(comments);
+        const resultHTML = comment.reduce((sum, v) => {
+            const commentObject = {
+                review: v.comment,
+                grade: v.score + '.0',
+                email: modifyEmail(v.reservationEmail),
+                date: modifyDate(v.reservationDate),
+                imageUrl: getCommentImage(v.commentImages)
+            };
+            return sum += bindTemplate(commentObject);
+        }, '');
+        const list = document.querySelector(".list_short_review");
+        list.innerHTML = resultHTML;
+
+    }
+
+    const getComment = (comments) => {
+        const result = [];
+        for (let i = 0; i < Math.min(3, comments.length); i++) {
+            result.push(comments[i]);
+        }
+        return result;
+    }
+
+    const modifyEmail = (email) => {
+        return `${email.substring(0, 4)}****`;
+    }
+
+    const modifyDate = (date) => {
+        const dateToArr = date.split('-');
+        const year = dateToArr[0];
+        const month = parseInt(dateToArr[1], 10);
+        const day = parseInt(dateToArr[2].substring(0, 2));
+        return `${year}.${month}.${day}. 방문`;
+    }
+
+    const getCommentImage = (images) => {
+        return images.length > 0 ? `../img/${images[0].saveFileName}` : null;
     }
 
     function loadIntroduce({productContent}) {
