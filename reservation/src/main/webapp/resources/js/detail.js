@@ -58,11 +58,8 @@
     }
 
     const getComment = (comments, maxCommentCount) => {
-        const result = [];
-        const commentSize = Math.min(maxCommentCount, comments.length);
-        for (let i = 0; i < commentSize; i++) {
-            result.push(comments[i]);
-        }
+        const commentCount = Math.min(maxCommentCount, comments.length);
+        const result = comments.slice(0, commentCount);
         return result;
     }
 
