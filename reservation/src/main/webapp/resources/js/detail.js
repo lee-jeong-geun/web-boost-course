@@ -29,8 +29,12 @@
     function loadComment(data) {
         const {averageScore} = data;
         const {comments} = data;
+        const list = document.querySelector(".list_short_review");
+        const commentCount = document.querySelector(".join_count .green");
 
+        commentCount.innerHTML = `${comments.length}건`;
         if (comments.length === 0) {
+            list.innerHTML = '';
             return;
         }
 
@@ -48,7 +52,6 @@
             };
             return sum += bindTemplate(commentObject);
         }, '');
-        const list = document.querySelector(".list_short_review");
         list.innerHTML = resultHTML;
 
     }
