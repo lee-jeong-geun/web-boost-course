@@ -21,9 +21,12 @@
         let param = (new URL(document.location)).searchParams;
         let id = param.get('id');
         const detailData = await makeRequest('GET', `/reservation/api/products/${id}`);
+        const topIntroduceBox = document.querySelector(".store_details .dsc");
+        const bottomIntroduceBox = document.querySelector(".detail_info_lst .in_dsc");
         console.log(detailData);
+        loadIntroduce(detailData.displayInfo, topIntroduceBox)
         loadComment(detailData);
-        loadIntroduce(detailData.displayInfo);
+        loadIntroduce(detailData.displayInfo, bottomIntroduceBox);
     }
 
     function loadComment(data) {
@@ -86,8 +89,7 @@
         return images.length > 0 ? `../img/${images[0].saveFileName}` : null;
     }
 
-    function loadIntroduce({productContent}) {
-        const introduceBox = document.querySelector(".detail_info_lst .in_dsc");
+    function loadIntroduce({productContent}, introduceBox) {
         introduceBox.innerHTML = productContent;
     }
 
