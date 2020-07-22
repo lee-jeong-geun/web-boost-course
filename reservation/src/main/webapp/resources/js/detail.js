@@ -29,6 +29,7 @@
     function loadComment(data) {
         const {averageScore} = data;
         const {comments} = data;
+        const MAX_COMMENT_COUNT = 3;
         const list = document.querySelector(".list_short_review");
         const commentCount = document.querySelector(".join_count .green");
 
@@ -41,7 +42,7 @@
         const template = document.querySelector("#commentTemplate").innerHTML;
         const bindTemplate = Handlebars.compile(template);
 
-        const comment = getComment(comments);
+        const comment = getComment(comments, MAX_COMMENT_COUNT);
         const resultHTML = comment.reduce((sum, v) => {
             const commentObject = {
                 review: v.comment,
@@ -56,9 +57,10 @@
 
     }
 
-    const getComment = (comments) => {
+    const getComment = (comments, maxCommentCount) => {
         const result = [];
-        for (let i = 0; i < Math.min(3, comments.length); i++) {
+        const commentSize = Math.min(maxCommentCount, comments.length);
+        for (let i = 0; i < commentSize; i++) {
             result.push(comments[i]);
         }
         return result;
