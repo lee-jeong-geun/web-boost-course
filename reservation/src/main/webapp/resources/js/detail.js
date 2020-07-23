@@ -21,8 +21,8 @@
         let param = (new URL(document.location)).searchParams;
         let id = param.get('id');
         const detailData = await makeRequest('GET', `/reservation/api/products/${id}`);
-        const topIntroduceBox = document.querySelector(".store_details .dsc");
-        const bottomIntroduceBox = document.querySelector(".detail_info_lst .in_dsc");
+        const topIntroduceBox = document.querySelector('.store_details .dsc');
+        const bottomIntroduceBox = document.querySelector('.detail_info_lst .in_dsc');
         loadIntroduce(detailData.displayInfo, topIntroduceBox)
         loadComment(detailData);
         loadIntroduce(detailData.displayInfo, bottomIntroduceBox);
@@ -33,10 +33,10 @@
         const MAX_AVERAGE_SCORE = 5;
         const {averageScore} = data;
         const {comments} = data;
-        const list = document.querySelector(".list_short_review");
-        const commentCount = document.querySelector(".join_count .green");
-        const gradeValue = document.querySelector(".grade_area .text_value span");
-        const graphValue = document.querySelector(".grade_area .graph_mask .graph_value");
+        const list = document.querySelector('.list_short_review');
+        const commentCount = document.querySelector('.join_count .green');
+        const gradeValue = document.querySelector('.grade_area .text_value span');
+        const graphValue = document.querySelector('.grade_area .graph_mask .graph_value');
         const roundOffAverageScore = averageScore.toFixed(1);
 
         graphValue.style.width = `${roundOffAverageScore / MAX_AVERAGE_SCORE * 100}%`;
@@ -48,7 +48,7 @@
             return;
         }
 
-        const template = document.querySelector("#commentTemplate").innerHTML;
+        const template = document.querySelector('#commentTemplate').innerHTML;
         const bindTemplate = Handlebars.compile(template);
 
         const comment = getComment(comments, MAX_COMMENT_COUNT);
@@ -153,7 +153,7 @@
             .join(' ');
     }
 
-    window.addEventListener("DOMContentLoaded", loadData);
-    document.querySelector(".section_store_details").addEventListener("click", topIntroduceToggle);
+    window.addEventListener('DOMContentLoaded', loadData);
+    document.querySelector('.section_store_details').addEventListener('click', topIntroduceToggle);
 })();
 
