@@ -93,7 +93,28 @@
     }
 
     function topIntroduceToggle({target}) {
-        
+        if (findParentClass('section_store_details', 'store_details', target)) {
+            return;
+        }
+    }
+
+    function findParentClass(rootClassString, findClassString, currentElement) {
+        if (findClass(currentElement, rootClassString)) {
+            return false;
+        } else if (findClass(currentElement, findClassString)) {
+            return true;
+        }
+        return findParentClass(rootClassString, findClassString, currentElement.parentElement);
+    }
+
+    function findClass(element, classString) {
+        return element
+            .className
+            .split(' ')
+            .filter((name) => {
+                return name === classString;
+            })
+            .length > 0;
     }
 
     window.addEventListener("DOMContentLoaded", loadData);
