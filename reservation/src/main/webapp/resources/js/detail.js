@@ -23,7 +23,6 @@
         const detailData = await makeRequest('GET', `/reservation/api/products/${id}`);
         const topIntroduceBox = document.querySelector(".store_details .dsc");
         const bottomIntroduceBox = document.querySelector(".detail_info_lst .in_dsc");
-        console.log(detailData);
         loadIntroduce(detailData.displayInfo, topIntroduceBox)
         loadComment(detailData);
         loadIntroduce(detailData.displayInfo, bottomIntroduceBox);
@@ -93,6 +92,11 @@
         introduceBox.innerHTML = productContent;
     }
 
+    function topIntroduceToggle({target}) {
+        
+    }
+
     window.addEventListener("DOMContentLoaded", loadData);
+    document.querySelector(".section_store_details").addEventListener("click", topIntroduceToggle);
 })();
 
