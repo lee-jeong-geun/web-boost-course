@@ -96,6 +96,21 @@
         if (findParentClass('section_store_details', 'store_details', target)) {
             return;
         }
+        const introduceBox = document.querySelector('.store_details');
+        const openButton = document.querySelector('.section_store_details ._open');
+        const closeButton = document.querySelector('.section_store_details ._close');
+
+        if (findParentClass('section_store_details', '_open', target)) {
+            removeClass(introduceBox, 'close3');
+            openButton.style.display = 'none';
+            closeButton.style = '';
+            closeButton.removeAttribute('style');
+        } else {
+            addClass(introduceBox, 'close3');
+            openButton.style = '';
+            openButton.removeAttribute('style');
+            closeButton.style.display = 'none';
+        }
     }
 
     function findParentClass(rootClassString, findClassString, currentElement) {
@@ -115,6 +130,27 @@
                 return name === classString;
             })
             .length > 0;
+    }
+
+    function addClass(element, classString) {
+        element.className = element
+            .className
+            .split(' ')
+            .filter((name) => {
+                return name !== classString;
+            })
+            .concat(classString)
+            .join(' ');
+    }
+
+    function removeClass(element, classString) {
+        element.className = element
+            .className
+            .split(' ')
+            .filter((name) => {
+                return name !== classString;
+            })
+            .join(' ');
     }
 
     window.addEventListener("DOMContentLoaded", loadData);
