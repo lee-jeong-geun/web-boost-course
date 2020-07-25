@@ -23,13 +23,37 @@
         const detailData = await makeRequest('GET', `/reservation/api/products/${id}`);
         const topIntroduceBox = document.querySelector('.store_details .dsc');
         const bottomIntroduceBox = document.querySelector('.detail_info_lst .in_dsc');
+        loadImage(detailData);
         loadIntroduce(detailData.displayInfo, topIntroduceBox)
         loadComment(detailData);
         loadIntroduce(detailData.displayInfo, bottomIntroduceBox);
     }
 
     function loadImage(data) {
+        const MAX_IMAGE_COUNT = 2;
+        const {displayInfo} = data;
+        const {productDescription} = displayInfo;
+        const {productImages} = data;
+        const template = document.querySelector('#imageTemplate').innerHTML;
+        const imageBox = document.querySelector(".visual_img");
+        const bindTemplate = Handlebars.compile(template);
+        const image = getImage(productImages, MAX_IMAGE_COUNT);
 
+        const resultHTML = image.reduce((sum, v) => {
+            const bindObject = {
+                imageDescription: productDescription,
+                imageUrl: `../${v.saveFileName}`,
+                title: productDescription
+            }
+            return sum + bindTemplate(bindObject);
+        }, '');
+        imageBox.innerHTML = resultHTML;
+    }
+
+    function getImage(images, maxImageCount) {
+        const imageCount = Math.min(maxImageCount, images.length);
+        const result = images.slice(0, imageCount);
+        return result;
     }
 
 
