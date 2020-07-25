@@ -28,6 +28,11 @@
         loadIntroduce(detailData.displayInfo, bottomIntroduceBox);
     }
 
+    function loadImage(data) {
+
+    }
+
+
     function loadComment(data) {
         const MAX_COMMENT_COUNT = 3;
         const MAX_AVERAGE_SCORE = 5;
