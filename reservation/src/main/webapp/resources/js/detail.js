@@ -37,7 +37,7 @@
         const template = document.querySelector('#imageTemplate').innerHTML;
         const imageBox = document.querySelector(".visual_img");
         const currentImageIndexBox = document.querySelector(".figure_pagination .num");
-        const maxImageBox = document.querySelector(".figure_pagination .off")
+        const maxImageCountBox = document.querySelector(".figure_pagination .off")
         const bindTemplate = Handlebars.compile(template);
         const image = getImage(productImages, MAX_IMAGE_COUNT);
 
@@ -51,7 +51,17 @@
         }, '');
         imageBox.innerHTML = resultHTML;
         currentImageIndexBox.innerHTML = '1';
-        maxImageBox.innerHTML = `/ <span>${image.length}</span>`;
+        maxImageCountBox.innerHTML = `/ <span>${image.length}</span>`;
+        if (image.length < 2) {
+            return;
+        }
+        const groupVisualBox = document.querySelector(".group_visual div");
+        const leftCursorTemplate = document.querySelector("#leftCursorTemplate").innerHTML;
+        const rightCursorTemplate = document.querySelector("#rightCursorTemplate").innerHTML;
+        const bindLeftTemplate = Handlebars.compile(leftCursorTemplate);
+        const bindRightTemplate = Handlebars.compile(rightCursorTemplate);
+        groupVisualBox.innerHTML += bindLeftTemplate() + bindRightTemplate();
+
 
     }
 
