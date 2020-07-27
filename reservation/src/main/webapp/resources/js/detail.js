@@ -36,7 +36,7 @@
         const {productImages} = data;
         const template = document.querySelector('#imageTemplate').innerHTML;
         const imageBox = document.querySelector(".visual_img");
-        const currentImageBox = document.querySelector(".figure_pagination .num");
+        const currentImageIndexBox = document.querySelector(".figure_pagination .num");
         const maxImageBox = document.querySelector(".figure_pagination .off")
         const bindTemplate = Handlebars.compile(template);
         const image = getImage(productImages, MAX_IMAGE_COUNT);
@@ -50,7 +50,7 @@
             return sum + bindTemplate(bindObject);
         }, '');
         imageBox.innerHTML = resultHTML;
-        currentImageBox.innerHTML = '1';
+        currentImageIndexBox.innerHTML = '1';
         maxImageBox.innerHTML = `/ <span>${image.length}</span>`;
 
     }
