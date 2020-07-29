@@ -25,7 +25,7 @@
         const bottomIntroduceBox = document.querySelector('.detail_info_lst .in_dsc');
         loadImage(detailData);
         loadIntroduce(detailData.displayInfo, topIntroduceBox)
-        loadComment(detailData);
+        loadComment(detailData, id);
         loadIntroduce(detailData.displayInfo, bottomIntroduceBox);
     }
 
@@ -62,7 +62,6 @@
         const bindRightTemplate = Handlebars.compile(rightCursorTemplate);
         groupVisualBox.innerHTML += bindLeftTemplate() + bindRightTemplate();
 
-
     }
 
     function getImage(images, maxImageCount) {
@@ -72,7 +71,7 @@
     }
 
 
-    function loadComment(data) {
+    function loadComment(data, id) {
         const MAX_COMMENT_COUNT = 3;
         const MAX_AVERAGE_SCORE = 5;
         const {averageScore} = data;
@@ -81,11 +80,12 @@
         const commentCount = document.querySelector('.join_count .green');
         const gradeValue = document.querySelector('.grade_area .text_value span');
         const graphValue = document.querySelector('.grade_area .graph_mask .graph_value');
+        const moreCommentButton = document.querySelector('.btn_review_more');
         const roundOffAverageScore = averageScore.toFixed(1);
-
         graphValue.style.width = `${roundOffAverageScore / MAX_AVERAGE_SCORE * 100}%`;
         gradeValue.innerText = roundOffAverageScore;
         commentCount.innerHTML = `${comments.length}건`;
+        moreCommentButton.setAttribute('href', `review.html?id=${id}`);
 
         if (comments.length === 0) {
             list.innerHTML = '';
