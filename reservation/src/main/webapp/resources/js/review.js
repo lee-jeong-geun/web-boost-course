@@ -16,4 +16,11 @@
         request.responseType = 'json';
         request.send(JSON.stringify(body));
     });
+    
+    async function loadData() {
+        let param = (new URL(document.location)).searchParams;
+        let id = param.get('id');
+        const detailData = await makeRequest('GET', `/reservation/api/products/${id}`);
+    }
+    
 })
