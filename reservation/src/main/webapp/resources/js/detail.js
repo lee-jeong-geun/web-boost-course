@@ -35,9 +35,9 @@
         const {productDescription} = displayInfo;
         const {productImages} = data;
         const template = document.querySelector('#imageTemplate').innerHTML;
-        const imageBox = document.querySelector(".visual_img");
-        const currentImageIndexBox = document.querySelector(".figure_pagination .num");
-        const maxImageCountBox = document.querySelector(".figure_pagination .off")
+        const imageBox = document.querySelector('.visual_img');
+        const currentImageIndexBox = document.querySelector('.figure_pagination .num');
+        const maxImageCountBox = document.querySelector('.figure_pagination .off')
         const bindTemplate = Handlebars.compile(template);
         const image = getImage(productImages, MAX_IMAGE_COUNT);
 
@@ -55,13 +55,24 @@
         if (image.length < 2) {
             return;
         }
-        const groupVisualBox = document.querySelector(".group_visual div");
-        const leftCursorTemplate = document.querySelector("#leftCursorTemplate").innerHTML;
-        const rightCursorTemplate = document.querySelector("#rightCursorTemplate").innerHTML;
+        const groupVisualBox = document.querySelector('.group_visual div');
+        const leftCursorTemplate = document.querySelector('#leftCursorTemplate').innerHTML;
+        const rightCursorTemplate = document.querySelector('#rightCursorTemplate').innerHTML;
         const bindLeftTemplate = Handlebars.compile(leftCursorTemplate);
         const bindRightTemplate = Handlebars.compile(rightCursorTemplate);
         groupVisualBox.innerHTML += bindLeftTemplate() + bindRightTemplate();
 
+        document.querySelector('.group_visual').addEventListener('click', moveImage);
+    }
+
+    function moveImage({target}) {
+        const imageBox = document.querySelector('.visual_img');
+        const images = document.querySelectorAll('.visual_img .item');
+        if (findParentClass('group_visual', 'prev_inn', target)) {
+            imageBox.appendChild(images[0]);
+        } else if (findParentClass('group_visual', 'nxt_inn', target)) {
+            imageBox.appendChild(images[0]);
+        }
     }
 
     function getImage(images, maxImageCount) {
