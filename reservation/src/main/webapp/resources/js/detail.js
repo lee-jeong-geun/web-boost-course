@@ -69,10 +69,10 @@
 
     function moveImage(imageList, {target}) {
         const imageBox = document.querySelector('.visual_img');
-        if (findParentClass('group_visual', 'prev_inn', target)) {
+        if (findParentClass('group_visual', 'nxt_inn', target)) {
             imageBox.innerHTML = imageList[(imageIndex + 1) % imageList.length];
             imageIndex = (imageIndex + 1) % imageList.length;
-        } else if (findParentClass('group_visual', 'nxt_inn', target)) {
+        } else if (findParentClass('group_visual', 'prev_inn', target)) {
             imageBox.innerHTML = imageList[(imageIndex - 1 + imageList.length) % imageList.length];
             imageIndex = (imageIndex - 1 + imageList.length) % imageList.length;
         }
