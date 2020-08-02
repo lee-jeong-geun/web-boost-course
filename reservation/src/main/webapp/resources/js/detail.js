@@ -40,16 +40,15 @@
         const maxImageCountBox = document.querySelector('.figure_pagination .off')
         const bindTemplate = Handlebars.compile(template);
         const image = getImage(productImages, MAX_IMAGE_COUNT);
-
-        const resultHTML = image.reduce((sum, v) => {
+        const imageList = image.map((v) => {
             const bindObject = {
                 imageDescription: productDescription,
                 imageUrl: `../${v.saveFileName}`,
                 title: productDescription
             }
-            return sum + bindTemplate(bindObject);
-        }, '');
-        imageBox.innerHTML = resultHTML;
+            return bindTemplate(bindObject);
+        });
+        imageBox.innerHTML = imageList[0];
         currentImageIndexBox.innerHTML = '1';
         maxImageCountBox.innerHTML = `/ <span>${image.length}</span>`;
         if (image.length < 2) {
@@ -61,18 +60,23 @@
         const bindLeftTemplate = Handlebars.compile(leftCursorTemplate);
         const bindRightTemplate = Handlebars.compile(rightCursorTemplate);
         groupVisualBox.innerHTML += bindLeftTemplate() + bindRightTemplate();
-
-        document.querySelector('.group_visual').addEventListener('click', moveImage);
+        document.querySelector('.group_visual').addEventListener('click', function(e) {
+            moveImage(imageList, e);
+        });
     }
 
-    function moveImage({target}) {
+    let imageIndex = 0;
+
+    function moveImage(imageList, {target}) {
         const imageBox = document.querySelector('.visual_img');
-        const images = document.querySelectorAll('.visual_img .item');
         if (findParentClass('group_visual', 'prev_inn', target)) {
-            imageBox.appendChild(images[0]);
+            imageBox.innerHTML = imageList[(imageIndex + 1) % imageList.length];
+            imageIndex = (imageIndex + 1) % imageList.length;
         } else if (findParentClass('group_visual', 'nxt_inn', target)) {
-            imageBox.appendChild(images[0]);
+            imageBox.innerHTML = imageList[(imageIndex - 1 + imageList.length) % imageList.length];
+            imageIndex = (imageIndex - 1 + imageList.length) % imageList.length;
         }
+
     }
 
     function getImage(images, maxImageCount) {
