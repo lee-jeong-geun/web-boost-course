@@ -29,6 +29,8 @@
         loadIntroduce(detailData.displayInfo, bottomIntroduceBox);
     }
 
+    let imageIndex = 0;
+
     function loadImage(data) {
         const MAX_IMAGE_COUNT = 2;
         const {displayInfo} = data;
@@ -46,7 +48,7 @@
                 imageUrl: `../${v.saveFileName}`,
                 title: productDescription
             }
-            return bindTemplate(bindObject);
+            return bindTemplate(bindObject).trim();
         });
         imageBox.innerHTML = imageList[0];
         currentImageIndexBox.innerHTML = '1';
@@ -54,29 +56,47 @@
         if (image.length < 2) {
             return;
         }
+        const {width} = imageBox.childNodes[0].getBoundingClientRect();
+        insertImage(imageBox, imageList, width);
+
         const groupVisualBox = document.querySelector('.group_visual div');
         const leftCursorTemplate = document.querySelector('#leftCursorTemplate').innerHTML;
         const rightCursorTemplate = document.querySelector('#rightCursorTemplate').innerHTML;
         const bindLeftTemplate = Handlebars.compile(leftCursorTemplate);
         const bindRightTemplate = Handlebars.compile(rightCursorTemplate);
         groupVisualBox.innerHTML += bindLeftTemplate() + bindRightTemplate();
-        document.querySelector('.group_visual').addEventListener('click', function(e) {
-            moveImage(imageList, e);
+        document.querySelector('.group_visual').addEventListener('click', function (e) {
+            moveImage(imageList, e, width);
         });
     }
 
-    let imageIndex = 0;
-
-    function moveImage(imageList, {target}) {
+    function moveImage(imageList, {target}, width) {
         const imageBox = document.querySelector('.visual_img');
         if (findParentClass('group_visual', 'nxt_inn', target)) {
-            imageBox.innerHTML = imageList[(imageIndex + 1) % imageList.length];
-            imageIndex = (imageIndex + 1) % imageList.length;
+            imageBox.childNodes.forEach(x => {
+                x.style.right = parseInt(x.style.right) + width + 'px';
+            });
+            setTimeout(() => {
+                imageIndex = (imageIndex + 1) % imageList.length;
+                insertImage(imageBox, imageList, width);
+            }, 500);
         } else if (findParentClass('group_visual', 'prev_inn', target)) {
-            imageBox.innerHTML = imageList[(imageIndex - 1 + imageList.length) % imageList.length];
-            imageIndex = (imageIndex - 1 + imageList.length) % imageList.length;
+            imageBox.childNodes.forEach(x => {
+                x.style.right = parseInt(x.style.right) - width + 'px';
+            });
+            setTimeout(() => {
+                imageIndex = (imageIndex - 1 + imageList.length) % imageList.length;
+                insertImage(imageBox, imageList, width);
+            }, 500);
         }
+    }
 
+    function insertImage(imageBox, imageList, width) {
+        imageBox.innerHTML = imageList[(imageIndex - 1 + imageList.length) % imageList.length] + imageList[imageIndex] + imageList[(imageIndex + 1) % imageList.length];
+        imageBox.childNodes.forEach(x => {
+            x.style.right = `${width}px`;
+            x.style.transition = 'right 0.5s, left 0.5s';
+        });
     }
 
     function getImage(images, maxImageCount) {
