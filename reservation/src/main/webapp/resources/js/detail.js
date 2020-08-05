@@ -80,7 +80,7 @@
                 imageIndex = (imageIndex + 1) % imageList.length;
                 currentImageIndexBox.innerHTML = imageIndex + 1;
                 insertImage(imageBox, imageList, width);
-            }, 500);
+            }, 100);
         } else if (findParentClass('group_visual', 'prev_inn', target)) {
             imageBox.childNodes.forEach(x => {
                 x.style.right = parseInt(x.style.right) - width + 'px';
@@ -89,7 +89,7 @@
                 imageIndex = (imageIndex - 1 + imageList.length) % imageList.length;
                 currentImageIndexBox.innerHTML = imageIndex + 1;
                 insertImage(imageBox, imageList, width);
-            }, 500);
+            }, 100);
         }
     }
 
@@ -97,7 +97,7 @@
         imageBox.innerHTML = imageList[(imageIndex - 1 + imageList.length) % imageList.length] + imageList[imageIndex] + imageList[(imageIndex + 1) % imageList.length];
         imageBox.childNodes.forEach(x => {
             x.style.right = `${width}px`;
-            x.style.transition = 'right 0.5s, left 0.5s';
+            x.style.transition = 'right 0.1s, left 0.1s';
         });
     }
 
