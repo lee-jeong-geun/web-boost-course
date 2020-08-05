@@ -66,11 +66,11 @@
         const bindRightTemplate = Handlebars.compile(rightCursorTemplate);
         groupVisualBox.innerHTML += bindLeftTemplate() + bindRightTemplate();
         document.querySelector('.group_visual').addEventListener('click', function (e) {
-            moveImage(imageList, e, width);
+            moveImage(imageList, e, width, currentImageIndexBox);
         });
     }
 
-    function moveImage(imageList, {target}, width) {
+    function moveImage(imageList, {target}, width, currentImageIndexBox) {
         const imageBox = document.querySelector('.visual_img');
         if (findParentClass('group_visual', 'nxt_inn', target)) {
             imageBox.childNodes.forEach(x => {
@@ -78,6 +78,7 @@
             });
             setTimeout(() => {
                 imageIndex = (imageIndex + 1) % imageList.length;
+                currentImageIndexBox.innerHTML = imageIndex + 1;
                 insertImage(imageBox, imageList, width);
             }, 500);
         } else if (findParentClass('group_visual', 'prev_inn', target)) {
@@ -86,6 +87,7 @@
             });
             setTimeout(() => {
                 imageIndex = (imageIndex - 1 + imageList.length) % imageList.length;
+                currentImageIndexBox.innerHTML = imageIndex + 1;
                 insertImage(imageBox, imageList, width);
             }, 500);
         }
